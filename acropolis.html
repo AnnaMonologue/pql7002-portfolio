@@ -1,0 +1,2451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Exploring the Acropolis of Athens</title>
+  <style>
+    :root {
+      --navy: #0b2f53;
+      --blue: #1d5f8f;
+      --sand: #f5ead6;
+      --paper: #fffaf0;
+      --gold: #c99a3c;
+      --brown: #5a3f2b;
+      --green: #476b4f;
+      --soft-blue: #eaf3f8;
+      --ink: #262626;
+      --muted: #6c6254;
+      --page-line: rgba(92, 70, 45, 0.18);
+      --shadow: 0 24px 70px rgba(33, 27, 18, 0.18);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Georgia, 'Times New Roman', serif;
+      background:
+        radial-gradient(circle at top left, rgba(255,255,255,0.55), transparent 28%),
+        linear-gradient(135deg, #d9ccb3, #f5ead6 55%, #e8dcc6);
+      color: var(--ink);
+    }
+
+    .app {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 18px 22px 24px;
+    }
+
+    .top-bar {
+      width: min(1280px, 100%);
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 14px;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .progress-wrap {
+      flex: 1;
+      height: 10px;
+      background: rgba(255, 255, 255, 0.62);
+      border-radius: 999px;
+      overflow: hidden;
+      border: 1px solid rgba(11, 47, 83, 0.16);
+    }
+
+    #progressBar {
+      height: 100%;
+      width: 10%;
+      background: linear-gradient(90deg, var(--blue), var(--gold));
+      transition: width 0.28s ease;
+    }
+
+    .page-label {
+      color: var(--navy);
+      font-weight: 800;
+      white-space: nowrap;
+      letter-spacing: 0.2px;
+    }
+
+    .flipbook-view {
+      width: min(1048px, 100%);
+      height: min(760px, calc(100vh - 140px));
+      min-height: 560px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .print-view {
+      width: min(1280px, 100%);
+    }
+
+    .ebook {
+      width: min(1280px, 100%);
+      height: min(760px, calc(100vh - 122px));
+      min-height: 700px;
+      position: relative;
+      perspective: 2200px;
+    }
+
+    .flip-book {
+      width: 100%;
+      height: 100%;
+      margin: 0 auto;
+      filter: drop-shadow(0 16px 30px rgba(33, 27, 18, 0.16));
+    }
+
+    .page {
+      display: none;
+      height: 100%;
+      min-height: 700px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 8px;
+      border: 1px solid rgba(90, 63, 43, 0.24);
+      box-shadow: var(--shadow);
+      background:
+        linear-gradient(90deg,
+          #fffaf0 0%,
+          #fffdf7 45.4%,
+          #f3e8d4 48.1%,
+          #c8b391 49.75%,
+          #8f7857 50%,
+          #c8b391 50.25%,
+          #f3e8d4 51.9%,
+          #fffdf7 54.6%,
+          #fffaf0 100%);
+      transform-origin: left center;
+      backface-visibility: hidden;
+    }
+
+    .page.active { display: block; }
+
+    body.pageflip-ready .flip-book .page {
+      display: block;
+    }
+
+    @media screen {
+      .print-view { display: none; }
+      .flipbook-view { display: flex; }
+
+      .flipbook-view .stf__parent,
+      .flipbook-view .stf__wrapper,
+      .flipbook-view .stf__block {
+        margin-left: auto !important;
+        margin-right: auto !important;
+      }
+
+      .flipbook-view .stf__item {
+        margin: 0 !important;
+      }
+
+      .flipbook-view .page {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        width: 100%;
+        height: 100%;
+        min-height: 0;
+        padding: 48px 32px 42px;
+        overflow: hidden;
+        background: linear-gradient(90deg, #fffaf0 0%, #fffdf7 100%);
+        border-radius: 4px;
+      }
+
+      .flipbook-view .left-page {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        box-shadow: inset -9px 0 12px -13px rgba(70, 50, 30, 0.55);
+      }
+
+      .flipbook-view .right-page {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        box-shadow: inset 9px 0 12px -13px rgba(70, 50, 30, 0.55);
+      }
+
+      .flipbook-view .flipbook-page > h2 {
+        margin-bottom: 4px;
+      }
+
+      .flipbook-view .image-led {
+        padding-top: 44px;
+      }
+
+      .flipbook-view .image-led .image-card {
+        flex: 1;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        margin-top: 4px;
+      }
+
+      .flipbook-view .image-led .image-card img {
+        flex: 1;
+        min-height: 320px;
+        height: auto;
+      }
+
+      .flipbook-view .text-led {
+        justify-content: space-between;
+        padding-top: 54px;
+        padding-bottom: 54px;
+      }
+
+      .flipbook-view .text-led .key-card,
+      .flipbook-view .text-led .task-card,
+      .flipbook-view .activity-led .info-card,
+      .flipbook-view .activity-led .task-card,
+      .flipbook-view .activity-led .key-card {
+        margin-top: 10px;
+      }
+
+      .flipbook-view .text-led > p,
+      .flipbook-view .activity-led > p {
+        margin-bottom: 8px;
+      }
+
+      .flipbook-view .editorial-top-zone,
+      .flipbook-view .editorial-explain-zone,
+      .flipbook-view .editorial-lower-zone,
+      .flipbook-view .guided-observation-zone,
+      .flipbook-view .concept-lower-zone {
+        min-height: 0;
+      }
+
+      .flipbook-view .editorial-top-zone {
+        display: grid;
+        gap: 10px;
+      }
+
+      .flipbook-view .editorial-explain-zone {
+        display: grid;
+        gap: 10px;
+      }
+
+      .flipbook-view .editorial-lower-zone {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        gap: 12px;
+      }
+
+      .flipbook-view .guided-observation-zone,
+      .flipbook-view .concept-lower-zone {
+        display: grid;
+        gap: 12px;
+      }
+
+      .flipbook-view .spread-02.left-page,
+      .flipbook-view .spread-03.left-page,
+      .flipbook-view .spread-04.left-page,
+      .flipbook-view .spread-04.right-page {
+        justify-content: space-between;
+      }
+
+      .flipbook-view .spread-02.left-page .editorial-lower-zone .image-card,
+      .flipbook-view .spread-03.left-page .editorial-lower-zone .image-card,
+      .flipbook-view .spread-04.right-page .editorial-lower-zone .image-card {
+        flex: 1;
+      }
+
+      .flipbook-view .spread-02.left-page .image-card img {
+        min-height: 380px;
+      }
+
+      .flipbook-view .spread-03.left-page .image-card img {
+        min-height: 350px;
+      }
+
+      .flipbook-view .spread-04.right-page .image-card img {
+        min-height: 405px;
+        object-fit: contain;
+      }
+
+      .designed-strip,
+      .observation-anchor,
+      .visual-clue-strip {
+        padding: 14px 15px;
+        border: 1px solid rgba(90, 63, 43, 0.18);
+        border-left: 4px solid var(--gold);
+        border-radius: 5px;
+        background: rgba(255,255,255,0.50);
+        color: var(--brown);
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 13px;
+        line-height: 1.35;
+      }
+
+      .designed-strip strong,
+      .observation-anchor strong,
+      .visual-clue-strip strong {
+        display: block;
+        margin-bottom: 8px;
+        color: var(--navy);
+        font-size: 12px;
+        letter-spacing: 0.8px;
+        text-transform: uppercase;
+      }
+
+      .clue-chip-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 7px;
+      }
+
+      .clue-chip-row span {
+        display: inline-flex;
+        align-items: center;
+        padding: 5px 8px;
+        border-radius: 999px;
+        background: rgba(246, 234, 212, 0.82);
+        border: 1px solid rgba(90, 63, 43, 0.14);
+        color: var(--brown);
+        font-size: 12px;
+        font-weight: 800;
+      }
+
+      .observation-anchor {
+        margin-top: 4px;
+      }
+
+      .observation-anchor p,
+      .designed-strip p,
+      .visual-clue-strip p {
+        margin: 0;
+        font-size: 13px;
+        line-height: 1.4;
+      }
+
+      .flipbook-view .spread-02.right-page {
+        justify-content: space-between;
+      }
+
+      .flipbook-view .spread-02.right-page .editorial-explain-zone {
+        padding-top: 8px;
+      }
+
+      .flipbook-view .spread-02.right-page .guided-observation-zone {
+        padding-bottom: 22px;
+      }
+
+      .flipbook-view .spread-02.left-page .designed-strip {
+        margin-top: 2px;
+      }
+
+      .flipbook-view .spread-02.right-page .observation-anchor {
+        margin-bottom: 18px;
+      }
+
+      .flipbook-view .spread-03.right-page {
+        justify-content: space-between;
+      }
+
+      .flipbook-view .spread-03.right-page .source-bottom-module {
+        margin-top: 4px;
+      }
+
+      .flipbook-view .spread-03.left-page .designed-strip {
+        margin-top: 2px;
+      }
+
+      .flipbook-view .spread-04.left-page .concept-lower-zone {
+        margin-bottom: 18px;
+      }
+
+      .flipbook-view .spread-04.right-page .visual-clue-strip {
+        margin-bottom: 16px;
+      }
+
+      .flipbook-view .spread-05.left-page,
+      .flipbook-view .spread-07.left-page,
+      .flipbook-view .spread-08.left-page {
+        justify-content: space-between;
+      }
+
+      .flipbook-view .spread-05.left-page .image-card img,
+      .flipbook-view .spread-07.left-page .image-card img,
+      .flipbook-view .spread-08.left-page .image-card img,
+      .flipbook-view .spread-09.left-page .image-card img {
+        min-height: 355px;
+      }
+
+      .flipbook-view .spread-05.right-page,
+      .flipbook-view .spread-07.right-page,
+      .flipbook-view .spread-08.right-page,
+      .flipbook-view .spread-09.right-page,
+      .flipbook-view .spread-10.left-page,
+      .flipbook-view .spread-10.right-page {
+        justify-content: space-between;
+      }
+
+      .importance-module {
+        display: grid;
+        gap: 12px;
+      }
+
+      .importance-module .two-card-row {
+        gap: 12px;
+        align-items: stretch;
+      }
+
+      .importance-module .info-card {
+        min-height: 188px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        padding: 17px;
+      }
+
+      .importance-module .info-card ul {
+        margin-bottom: 0;
+        padding-left: 19px;
+      }
+
+      .bottom-task-module {
+        margin-top: 2px;
+        margin-bottom: 16px;
+      }
+
+      .number-module {
+        display: grid;
+        gap: 14px;
+      }
+
+      .number-module .number-list {
+        gap: 12px;
+        margin-top: 0;
+      }
+
+      .number-module .number-item {
+        min-height: 74px;
+        display: flex;
+        align-items: center;
+      }
+
+      .instruction-module {
+        padding: 18px;
+      }
+
+      .instruction-module ol {
+        display: grid;
+        gap: 9px;
+        margin: 10px 0 0;
+        padding-left: 22px;
+      }
+
+      .instruction-module li {
+        line-height: 1.38;
+      }
+
+      .reminder-anchor,
+      .textbook-anchor {
+        margin-bottom: 14px;
+      }
+
+      .textbook-anchor {
+        border-style: solid;
+        background: rgba(255,255,255,0.50);
+        border-left: 4px solid var(--gold);
+        margin-top: 14px;
+      }
+
+      .textbook-anchor summary {
+        padding-top: 12px;
+        padding-bottom: 12px;
+      }
+
+      .textbook-anchor .click-card-content {
+        grid-template-columns: 108px 1fr;
+        gap: 13px;
+      }
+
+      .textbook-anchor .click-card-content img {
+        width: 108px;
+        max-height: 76px;
+      }
+
+      .scenario-module {
+        padding: 20px;
+      }
+
+      .scenario-module .quiz-options {
+        gap: 9px;
+      }
+
+      .scenario-module button {
+        width: 100%;
+      }
+
+      .reflection-module {
+        margin-bottom: 16px;
+      }
+
+      .reflection-module,
+      .recap-module,
+      .takeaway-module {
+        border-left-color: var(--green);
+      }
+
+      .recap-module {
+        margin-bottom: 18px;
+      }
+
+      .takeaway-module {
+        margin-top: 8px;
+      }
+
+      .self-check-module {
+        display: grid;
+        gap: 12px;
+        margin-bottom: 14px;
+      }
+
+      .self-check-module .check-group {
+        background: rgba(255,255,255,0.34);
+        padding: 14px;
+        border: 1px solid rgba(90, 63, 43, 0.16);
+        border-radius: 5px;
+      }
+
+      .flipbook-view .profile-led .museum-profile {
+        min-height: 176px;
+      }
+
+      .flipbook-view .profile-led .museum-profile h3 {
+        margin-bottom: 8px;
+      }
+
+      .flipbook-view .profile-led .museum-profile p {
+        margin-bottom: 6px;
+      }
+
+      .flipbook-view .profile-led .profile-question {
+        border-left-color: var(--green);
+        font-size: 13px;
+      }
+
+      .profile-summary-module {
+        margin-top: 2px;
+        border-left-color: var(--green);
+      }
+
+      .profile-summary-module p {
+        margin: 0;
+      }
+
+      .flipbook-view .spread-06.left-page,
+      .flipbook-view .spread-06.right-page {
+        justify-content: space-between;
+      }
+
+      .flipbook-view .spread-02.left-page .image-card img,
+      .flipbook-view .spread-03.left-page .image-card img,
+      .flipbook-view .spread-07.left-page .image-card img {
+        object-fit: contain;
+        background: rgba(255,255,255,0.34);
+      }
+
+      .flipbook-view .spread-05.left-page .image-card img,
+      .flipbook-view .spread-08.left-page .image-card img,
+      .flipbook-view .spread-09.left-page .image-card img {
+        object-fit: cover;
+      }
+
+      .flipbook-view .spread-03.right-page,
+      .flipbook-view .spread-05.right-page,
+      .flipbook-view .spread-07.right-page,
+      .flipbook-view .spread-08.right-page,
+      .flipbook-view .spread-09.right-page {
+        justify-content: space-evenly;
+      }
+
+      .flipbook-view .spread-08.right-page .info-card ol {
+        margin-bottom: 0;
+      }
+
+      .flipbook-view .spread-09.left-page .click-card {
+        margin-top: 12px;
+      }
+
+      .flipbook-view .spread-09.right-page .task-card {
+        padding: 20px;
+      }
+
+      .flipbook-view .page::after {
+        display: none;
+      }
+
+      .flipbook-view .hero-page {
+        padding: 0;
+        background:
+          linear-gradient(90deg, rgba(8, 30, 55, 0.86) 0%, rgba(8, 30, 55, 0.58) 52%, rgba(8, 30, 55, 0.16) 100%),
+          url('assets/acropolis-hero.jpg') center/cover no-repeat;
+      }
+
+      .flipbook-view .hero-content {
+        width: 100%;
+        min-height: 0;
+        height: 100%;
+        padding: 64px 42px;
+      }
+
+      .flipbook-view .book-side,
+      .flipbook-view .profile-page-side,
+      .flipbook-view .reflection-side {
+        height: 100%;
+        justify-content: center;
+      }
+
+      .flipbook-view .image-card img {
+        height: clamp(220px, 34vh, 360px);
+      }
+
+      .flipbook-view .museum-profile {
+        grid-template-columns: 145px minmax(0, 1fr);
+        min-height: 166px;
+        padding: 10px;
+      }
+
+      .flipbook-view .museum-profile img {
+        height: 142px;
+      }
+
+      .flipbook-view .museum-profile p {
+        font-size: 12px;
+      }
+
+      .flipbook-view .profile-question {
+        margin-bottom: 0;
+      }
+
+      .flipbook-view .profile-led {
+        justify-content: space-evenly;
+        gap: 12px;
+      }
+
+      .flipbook-view .profile-led .profile-intro {
+        margin-bottom: 0;
+      }
+
+      .flipbook-view .reflection-led {
+        justify-content: space-evenly;
+      }
+
+      .flipbook-view .page-footer {
+        left: 28px;
+        right: 28px;
+        bottom: 16px;
+      }
+
+      .flipbook-view .back-cover-page {
+        background:
+          linear-gradient(135deg, rgba(11,47,83,0.95), rgba(29,95,143,0.82)),
+          url('assets/acropolis-hero.jpg') center/cover no-repeat;
+        color: white;
+      }
+
+      .flipbook-view .back-cover-page h2,
+      .flipbook-view .back-cover-page p {
+        color: white;
+      }
+    }
+
+    .page.active.flip-next { animation: bookFlipNext 0.52s ease both; }
+    .page.active.flip-prev { animation: bookFlipPrev 0.52s ease both; }
+
+    @keyframes bookFlipNext {
+      from { transform: rotateY(-10deg) translateX(-12px); opacity: 0.25; filter: blur(0.6px); }
+      to { transform: rotateY(0deg) translateX(0); opacity: 1; filter: blur(0); }
+    }
+
+    @keyframes bookFlipPrev {
+      from { transform: rotateY(10deg) translateX(12px); opacity: 0.25; filter: blur(0.6px); }
+      to { transform: rotateY(0deg) translateX(0); opacity: 1; filter: blur(0); }
+    }
+
+    .page:not(.hero-page)::before {
+      content: attr(data-page) ' / ' attr(data-title);
+      position: absolute;
+      top: 26px;
+      left: 38px;
+      z-index: 3;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1.4px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .page:not(.hero-page)::after {
+      content: '';
+      position: absolute;
+      top: 26px;
+      bottom: 26px;
+      left: 50%;
+      width: 22px;
+      transform: translateX(-50%);
+      background:
+        linear-gradient(90deg, transparent, rgba(80, 59, 38, 0.07), rgba(80, 59, 38, 0.13), rgba(80, 59, 38, 0.07), transparent);
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .page-inner {
+      height: 100%;
+      min-height: 700px;
+      padding: 66px 38px 42px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .book-spread {
+      height: 100%;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      column-gap: 74px;
+      align-items: stretch;
+    }
+
+    .book-side {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 14px;
+    }
+
+    .book-side.top {
+      justify-content: flex-start;
+    }
+
+    .page-footer {
+      position: absolute;
+      left: 38px;
+      right: 38px;
+      bottom: 18px;
+      display: flex;
+      justify-content: space-between;
+      color: var(--muted);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      pointer-events: none;
+    }
+
+    .hero-page {
+      color: white;
+      background:
+        linear-gradient(90deg, rgba(8, 30, 55, 0.86) 0%, rgba(8, 30, 55, 0.62) 45%, rgba(8, 30, 55, 0.28) 58%, rgba(8, 30, 55, 0.06) 100%),
+        url('assets/acropolis-hero.jpg') center/cover no-repeat;
+    }
+
+    .hero-page::after {
+      content: '';
+      position: absolute;
+      top: 34px;
+      bottom: 34px;
+      left: 50%;
+      width: 30px;
+      transform: translateX(-50%);
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.13), rgba(0,0,0,0.20), rgba(255,255,255,0.13), transparent);
+    }
+
+    .hero-content {
+      height: 100%;
+      min-height: 700px;
+      width: calc(50% - 37px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 58px 48px;
+      position: relative;
+      z-index: 2;
+    }
+
+    h1, h2, h3 {
+      margin: 0;
+      color: var(--navy);
+    }
+
+    .hero-page h1,
+    .hero-page h2,
+    .hero-page p { color: white; }
+
+    .hero-page .page-footer,
+    .cover-label {
+      color: rgba(255,255,255,0.86);
+    }
+
+    .cover-label {
+      position: absolute;
+      top: 26px;
+      left: 38px;
+      z-index: 3;
+      font-family: Arial, Helvetica, sans-serif;
+      text-transform: uppercase;
+      letter-spacing: 1.4px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    h1 {
+      font-size: clamp(38px, 4.1vw, 58px);
+      line-height: 1.04;
+      letter-spacing: 0;
+    }
+
+    h2 {
+      font-size: clamp(24px, 2.4vw, 34px);
+      line-height: 1.14;
+      margin-bottom: 10px;
+      letter-spacing: 0.3px;
+    }
+
+    h3 {
+      font-size: 18px;
+      margin-bottom: 7px;
+    }
+
+    p, li {
+      font-size: 16px;
+      line-height: 1.48;
+    }
+
+    p { margin: 0 0 12px; }
+
+    .subtitle {
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 17px;
+      font-weight: 800;
+      margin: 18px 0 12px;
+      letter-spacing: 0.2px;
+    }
+
+    .lead {
+      font-size: 17px;
+      max-width: 520px;
+      line-height: 1.6;
+    }
+
+    .stage-pill {
+      display: inline-flex;
+      align-items: center;
+      width: fit-content;
+      padding: 7px 13px;
+      background: #e6d1aa;
+      color: var(--brown);
+      border-radius: 999px;
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: 800;
+      letter-spacing: 0.3px;
+      margin-bottom: 16px;
+      font-size: 13px;
+    }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .image-card,
+    .info-card,
+    .task-card,
+    .source-card,
+    .key-card,
+    .monument-card,
+    details.click-card {
+      box-shadow: none;
+    }
+
+    .image-card {
+      background: transparent;
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid rgba(90, 63, 43, 0.18);
+    }
+
+    .image-card img {
+      display: block;
+      width: 100%;
+      height: clamp(260px, 39vh, 430px);
+      object-fit: contain;
+      background: rgba(255,255,255,0.34);
+    }
+
+    .image-caption {
+      padding: 10px 12px;
+      color: var(--muted);
+      font-size: 12px;
+      font-style: italic;
+      background: rgba(255,255,255,0.70);
+    }
+
+    .info-card,
+    .task-card,
+    .source-card,
+    .key-card {
+      padding: 18px;
+      border-radius: 6px;
+      border: 1px solid rgba(90, 63, 43, 0.18);
+      background: rgba(255,255,255,0.56);
+    }
+
+    .task-card {
+      background: rgba(234, 243, 248, 0.82);
+      border-left: 5px solid var(--blue);
+      margin-top: 8px;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .key-card {
+      background: rgba(255, 243, 211, 0.82);
+      border-left: 5px solid var(--gold);
+      margin-top: 8px;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .small-source {
+      display: grid;
+      grid-template-columns: 140px 1fr;
+      gap: 16px;
+      align-items: center;
+      margin-top: 18px;
+      padding: 14px;
+      background: rgba(255,255,255,0.70);
+      border-radius: 6px;
+      border: 1px dashed rgba(11, 47, 83, 0.28);
+    }
+
+    .small-source img {
+      width: 140px;
+      max-height: 95px;
+      object-fit: cover;
+      border-radius: 4px;
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+
+    details.click-card {
+      margin-top: 8px;
+      background: rgba(255,255,255,0.64);
+      border-radius: 6px;
+      border: 1px dashed rgba(11, 47, 83, 0.35);
+      overflow: hidden;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    details.click-card summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 14px 16px;
+      color: var(--navy);
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    details.click-card summary::-webkit-details-marker { display: none; }
+
+    details.click-card summary::after {
+      content: '+';
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: var(--navy);
+      color: white;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    details.click-card[open] summary::after { content: '-'; }
+
+    .click-card-content {
+      display: grid;
+      grid-template-columns: 126px 1fr;
+      gap: 16px;
+      align-items: center;
+      padding: 0 16px 16px;
+    }
+
+    .click-card-content img {
+      width: 126px;
+      max-height: 88px;
+      object-fit: cover;
+      border-radius: 4px;
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+
+    .zoomable {
+      cursor: zoom-in;
+      transition: transform 0.18s ease, filter 0.18s ease;
+    }
+
+    .zoomable:hover {
+      transform: scale(1.015);
+      filter: brightness(1.03);
+    }
+
+    .image-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: rgba(8, 20, 35, 0.86);
+      align-items: center;
+      justify-content: center;
+      padding: 28px;
+    }
+
+    .image-modal.open { display: flex; }
+
+    .modal-box {
+      width: min(1100px, 96vw);
+      max-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .modal-box img {
+      max-width: 100%;
+      max-height: 82vh;
+      object-fit: contain;
+      border-radius: 8px;
+      background: white;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.35);
+    }
+
+    .modal-caption {
+      color: white;
+      font-size: 16px;
+      text-align: center;
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .modal-close {
+      position: fixed;
+      top: 20px;
+      right: 24px;
+      width: 44px;
+      height: 44px;
+      padding: 0;
+      border-radius: 50%;
+      background: white;
+      color: var(--navy);
+      font-size: 28px;
+      line-height: 44px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+    }
+
+    .modal-close:hover {
+      background: #f4f7fa;
+      color: var(--blue);
+      transform: none;
+    }
+
+    .btn-row {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    button {
+      border: none;
+      background: var(--navy);
+      color: white;
+      padding: 12px 20px;
+      font-size: 15px;
+      font-weight: 800;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: transform 0.16s ease, background 0.16s ease;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    button:hover {
+      background: var(--blue);
+      transform: translateY(-1px);
+    }
+
+    button.secondary {
+      background: white;
+      color: var(--navy);
+      border: 1px solid rgba(11, 47, 83, 0.18);
+    }
+
+    button.secondary:hover { background: #f4f7fa; }
+
+    .cover-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .monument-card {
+      overflow: hidden;
+      background: rgba(255,255,255,0.68);
+      border-radius: 6px;
+      border: 1px solid rgba(90, 63, 43, 0.18);
+    }
+
+    .monument-card img {
+      width: 100%;
+      height: 112px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .monument-card .body { padding: 11px 12px; }
+
+    .monument-card h3 { font-size: 16px; }
+
+    .monument-card p {
+      font-size: 12.6px;
+      margin: 5px 0;
+      line-height: 1.3;
+    }
+
+    .number-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 12px;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .number-item {
+      background: rgba(246, 234, 212, 0.85);
+      padding: 14px;
+      border-radius: 6px;
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--brown);
+      border: 1px solid rgba(90,63,43,0.14);
+    }
+
+    .quiz-options {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .feedback {
+      min-height: 28px;
+      margin-top: 12px;
+      font-weight: 800;
+      color: var(--green);
+    }
+
+    .checklist {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 18px;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .checklist label {
+      background: rgba(255,255,255,0.65);
+      padding: 12px 14px;
+      border-radius: 5px;
+      border: 1px solid rgba(11, 47, 83, 0.12);
+      font-size: 15px;
+      line-height: 1.35;
+    }
+
+    .navigation {
+      width: min(1280px, 100%);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 16px;
+      gap: 12px;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .page-title-mini {
+      color: var(--navy);
+      font-weight: 800;
+      text-align: center;
+      flex: 1;
+    }
+
+    .hidden { display: none; }
+
+    .two-card-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .reflection-columns {
+      display: grid;
+      grid-template-columns: 0.82fr 1.18fr;
+      gap: 74px;
+      height: 100%;
+      align-items: center;
+    }
+
+    .closing-note {
+      border-top: 1px solid var(--page-line);
+      padding-top: 18px;
+      margin-top: 16px;
+      color: var(--brown);
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: 800;
+    }
+
+    .profiles-page .page-inner,
+    .reflection-page .page-inner {
+      padding-left: 44px;
+      padding-right: 44px;
+    }
+
+    .profiles-spread {
+      height: 100%;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 96px;
+      align-items: stretch;
+    }
+
+    .profile-page-side {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+      justify-content: center;
+    }
+
+    .profile-intro {
+      margin-bottom: 4px;
+    }
+
+    .profile-intro h2,
+    .reflection-page h2 {
+      font-size: clamp(23px, 2vw, 30px);
+      margin-bottom: 6px;
+    }
+
+    .profile-subtitle {
+      color: var(--muted);
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 14px;
+      font-weight: 800;
+      line-height: 1.35;
+      margin: 0;
+    }
+
+    .museum-profile {
+      min-height: 188px;
+      display: grid;
+      grid-template-columns: clamp(150px, 13vw, 190px) minmax(0, 1fr);
+      gap: 14px;
+      align-items: stretch;
+      padding: 12px;
+      border-top: 1px solid rgba(90, 63, 43, 0.18);
+      background: rgba(255,255,255,0.34);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .museum-profile img {
+      width: 100%;
+      height: 164px;
+      object-fit: cover;
+      object-position: center;
+      border-radius: 4px;
+      border: 1px solid rgba(90, 63, 43, 0.16);
+      cursor: zoom-in;
+    }
+
+    .museum-profile h3 {
+      font-size: 17px;
+      line-height: 1.15;
+      margin-bottom: 7px;
+    }
+
+    .museum-profile p {
+      font-size: 12.8px;
+      line-height: 1.3;
+      margin: 0 0 5px;
+    }
+
+    .museum-profile strong {
+      color: var(--brown);
+    }
+
+    .profile-question {
+      width: min(420px, 100%);
+      align-self: center;
+      text-align: center;
+      margin: 2px 0 18px;
+      padding: 12px 18px;
+    }
+
+    .assembly-left-note {
+      margin-top: 12px;
+    }
+
+    .reflection-spread {
+      height: 100%;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      gap: 96px;
+      align-items: stretch;
+    }
+
+    .reflection-side {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 14px;
+    }
+
+    .final-idea-box {
+      padding: 17px 18px;
+      border-left: 4px solid var(--gold);
+      background: rgba(255, 243, 211, 0.68);
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.42;
+    }
+
+    .reflection-prompt {
+      padding-top: 8px;
+      border-top: 1px solid rgba(90, 63, 43, 0.18);
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: 800;
+      color: var(--brown);
+    }
+
+    .writing-lines {
+      display: grid;
+      gap: 18px;
+      margin-top: 2px;
+    }
+
+    .writing-lines span {
+      display: block;
+      height: 1px;
+      background: rgba(90, 63, 43, 0.38);
+    }
+
+    .check-group {
+      padding: 16px 0 4px;
+      border-top: 1px solid rgba(90, 63, 43, 0.18);
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    .check-group h3 {
+      font-size: 16px;
+      color: var(--brown);
+      margin-bottom: 10px;
+    }
+
+    .reflection-checklist {
+      display: grid;
+      gap: 10px;
+    }
+
+    .reflection-checklist label {
+      display: grid;
+      grid-template-columns: 18px 1fr;
+      gap: 10px;
+      align-items: start;
+      padding: 0;
+      font-size: 15px;
+      line-height: 1.38;
+    }
+
+    .reflection-checklist input {
+      margin-top: 2px;
+    }
+
+    .reflection-closing {
+      margin-top: auto;
+      padding-top: 16px;
+      border-top: 1px solid rgba(90, 63, 43, 0.18);
+      color: var(--brown);
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    @media (max-width: 900px) {
+      .book-spread, .grid-4, .two-card-row, .number-list, .quiz-options, .checklist, .reflection-columns, .profiles-spread, .reflection-spread {
+        grid-template-columns: 1fr;
+        gap: 22px;
+      }
+
+      .page, .ebook, .hero-content { min-height: auto; }
+
+      .page-inner, .hero-content {
+        width: 100%;
+        padding: 56px 28px 28px;
+      }
+
+      .page:not(.hero-page)::after,
+      .hero-page::after { display: none; }
+
+      .page {
+        background: #fffaf0;
+        height: auto;
+      }
+
+      .small-source,
+      .click-card-content { grid-template-columns: 1fr; }
+
+      .small-source img,
+      .click-card-content img {
+        width: 100%;
+        max-height: 150px;
+      }
+
+      .navigation { flex-wrap: wrap; }
+
+      .museum-profile {
+        grid-template-columns: 1fr;
+      }
+
+      .profile-question {
+        width: auto;
+        margin-top: 16px;
+      }
+
+      .flipbook-view {
+        width: 100%;
+        height: min(720px, calc(100vh - 152px));
+        min-height: 520px;
+      }
+
+      .flipbook-view .page {
+        padding: 50px 24px 34px;
+      }
+
+      .flipbook-view .image-led .image-card img {
+        min-height: 260px;
+      }
+
+      .flipbook-view .museum-profile {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media print {
+      @page {
+        size: A4 landscape;
+        margin: 10mm;
+      }
+
+      html,
+      body {
+        width: auto;
+        height: auto;
+        background: white;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation: none !important;
+        transition: none !important;
+        box-shadow: none !important;
+        filter: none !important;
+      }
+
+      .top-bar,
+      .navigation,
+      .image-modal,
+      .flipbook-view,
+      .cover-actions {
+        display: none !important;
+      }
+
+      .print-view {
+        display: block !important;
+        width: 100%;
+      }
+
+      .app {
+        display: block;
+        min-height: 0;
+        padding: 0;
+      }
+
+      .ebook {
+        width: 100%;
+        height: auto;
+        min-height: 0;
+        perspective: none;
+      }
+
+      .page,
+      .page.active {
+        display: block !important;
+        width: 100%;
+        height: 190mm;
+        min-height: 0;
+        overflow: hidden;
+        border-radius: 0;
+        border: 1px solid rgba(90, 63, 43, 0.18);
+        transform: none !important;
+        break-after: page;
+        page-break-after: always;
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      #book,
+      .stf__parent,
+      .stf__wrapper,
+      .stf__block,
+      .stf__item {
+        display: block !important;
+        position: static !important;
+        transform: none !important;
+        width: 100% !important;
+        height: auto !important;
+        overflow: visible !important;
+      }
+
+      .page:last-child {
+        break-after: auto;
+        page-break-after: auto;
+      }
+
+      .page-inner,
+      .hero-content {
+        height: 100%;
+        min-height: 0;
+        padding: 15mm 14mm 12mm;
+      }
+
+      .hero-content {
+        width: calc(50% - 16mm);
+      }
+
+      .book-spread,
+      .profiles-spread,
+      .reflection-spread {
+        height: 100%;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 22mm;
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      .book-side,
+      .profile-page-side,
+      .reflection-side {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+
+      .page:not(.hero-page)::after,
+      .hero-page::after {
+        opacity: 0.45;
+      }
+
+      .image-card img {
+        max-height: 105mm;
+      }
+
+      .zoomable:hover {
+        transform: none;
+        filter: none;
+      }
+
+      details.click-card {
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <main class="app">
+    <div class="top-bar">
+      <div class="progress-wrap"><div id="progressBar"></div></div>
+      <div class="page-label" id="pageLabel">Page 1 / 10</div>
+    </div>
+
+    <div class="flipbook-view">
+      <div id="book" class="flip-book" aria-label="Interactive Acropolis flipbook"></div>
+    </div>
+
+    <div class="print-view">
+    <div class="ebook">
+      <!-- Page 1 -->
+      <section class="page hero-page active" data-title="Cover">
+        <div class="cover-label">01 / Cover</div>
+        <div class="hero-content">
+          <div class="stage-pill">Interactive 3D Model Learning Guide</div>
+          <h1>Exploring the Acropolis of Athens</h1>
+          <p class="subtitle">Greek Civilization | Polis | Architecture | Civic Life</p>
+          <p class="lead">Welcome to your learning journey. In this eBook, you will explore Greek geography, the meaning of a polis, the importance of the Acropolis, and four key buildings through a 3D model.</p>
+          <div class="cover-actions">
+            <button onclick="nextPage()">Start Exploring</button>
+            <button onclick="downloadPdf()">Download PDF</button>
+          </div>
+        </div>
+        <div class="page-footer"><span>Acropolis Guide</span><span>Cover</span></div>
+      </section>
+
+      <!-- Page 2 -->
+      <section class="page" data-title="Meet the 3D Model">
+        <div class="page-inner">
+          <div class="book-spread">
+            <div class="book-side">
+              <div class="stage-pill">Phase 1: Discover the Acropolis through the 3D Model</div>
+              <h2>Meet the 3D Model</h2>
+              <div class="image-card">
+              <img src="assets/model-overview.png" alt="3D model overview of the Acropolis of Athens" />
+              <div class="image-caption">A 3D model of the Acropolis of Athens.</div>
+              </div>
+            </div>
+            <div class="book-side">
+              <p>This 3D model represents the Acropolis of Athens. It helps us see the high ground, the layout of the site, and the relationship between important buildings.</p>
+              <p>Instead of only reading about the Acropolis, you will observe, discuss, identify, and tag key buildings on the model.</p>
+              <div class="key-card"><strong>Key Idea:</strong><br />The 3D model helps make historical spaces easier to see, touch, and understand.</div>
+              <div class="task-card"><strong>Look carefully:</strong><br />What can you notice about the height and shape of the Acropolis?</div>
+            </div>
+          </div>
+          <div class="page-footer"><span>Model Observation</span><span>Page 02</span></div>
+        </div>
+      </section>
+
+      <!-- Page 3 -->
+      <section class="page" data-title="Greek Geography">
+        <div class="page-inner">
+          <div class="book-spread">
+            <div class="book-side">
+              <h2>Greek Geography</h2>
+              <div class="image-card">
+              <img src="assets/ancient-greece-map.png" alt="Map of ancient Greece" />
+              <div class="image-caption">Mountains, islands, and seas shaped Greek civilization.</div>
+              </div>
+            </div>
+            <div class="book-side">
+              <p>Ancient Greek civilization developed around the Greek peninsula, the Aegean Sea, and the Mediterranean Sea.</p>
+              <p>Mountains, islands, and seas made travel and communication more difficult. As a result, many independent city-states developed.</p>
+              <div class="key-card"><strong>Vocabulary:</strong><br />mountains / islands / seas / peninsula</div>
+              <div class="task-card"><strong>Task:</strong><br />Can you identify <strong>two geographical features</strong> of ancient Greece? Write your answers in <strong>Part A</strong> of your printed worksheet.</div>
+              <details class="click-card">
+                <summary>Textbook Connection: Greek geography, polis, and acropolis</summary>
+                <div class="click-card-content">
+                  <img src="assets/textbook-geography-polis-acropolis.png" alt="Textbook excerpt on Greek geography, polis, and acropolis" />
+                  <p>This section is adapted from the Form 1 History textbook content on Greek geography, polis, and acropolis. Click the image to enlarge the textbook reference.</p>
+                </div>
+              </details>
+            </div>
+          </div>
+          <div class="page-footer"><span>Geography</span><span>Page 03</span></div>
+        </div>
+      </section>
+
+      <!-- Page 4 -->
+      <section class="page" data-title="What is a Polis?">
+        <div class="page-inner">
+          <div class="book-spread">
+            <div class="book-side">
+              <h2>What is a Polis?</h2>
+              <p>A <strong>polis</strong> was an ancient Greek city-state.</p>
+              <p>Each polis had its own citizens, government, religion, public spaces, and way of life. Athens was one of the most important poleis in ancient Greece.</p>
+              <p>A polis was not only a city. It was also a community where people lived, worked, worshipped, and took part in civic life.</p>
+              <div class="key-card"><strong>Formula:</strong><br />Polis = city-state + citizens + government + religion + public space</div>
+              <div class="task-card"><strong>Discuss:</strong><br />What are <strong>two characteristics</strong> of a polis? Write your answers in <strong>Part B</strong> of your printed worksheet.</div>
+            </div>
+            <div class="book-side">
+              <div class="image-card">
+                <img src="assets/polis-concept.png" alt="Concept map explaining polis" />
+                <div class="image-caption">A polis connected people, government, worship, and shared spaces.</div>
+              </div>
+            </div>
+          </div>
+          <div class="page-footer"><span>Polis</span><span>Page 04</span></div>
+        </div>
+      </section>
+
+      <!-- Page 5 -->
+      <section class="page" data-title="Why was the Acropolis Important?">
+        <div class="page-inner">
+          <div class="book-spread">
+            <div class="book-side">
+              <div class="image-card">
+                <img src="assets/modern-acropolis.png" alt="Modern Acropolis of Athens on high ground" />
+                <div class="image-caption">The Acropolis was built on high ground above the city.</div>
+              </div>
+            </div>
+            <div class="book-side">
+              <h2>Why was the Acropolis Important?</h2>
+              <p>The word <strong>Acropolis</strong> means "high city".</p>
+              <p>The Acropolis of Athens was built on high ground. This made it an important place for protection, religion, and identity.</p>
+              <div class="two-card-row">
+                <div class="info-card">
+                  <h3>Strategic Importance</h3>
+                  <ul>
+                    <li>High ground for defense</li>
+                    <li>Good view over the city</li>
+                    <li>Symbol of protection and power</li>
+                  </ul>
+                </div>
+                <div class="info-card">
+                  <h3>Sacred Importance</h3>
+                  <ul>
+                    <li>Home to temples</li>
+                    <li>Connected to Athena</li>
+                    <li>Symbol of cultural identity</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="task-card"><strong>Task:</strong><br />Why was the Acropolis built on high ground? Write <strong>two strategic functions</strong> and <strong>one sacred feature</strong> in <strong>Part C</strong> of your worksheet.</div>
+            </div>
+          </div>
+          <div class="page-footer"><span>Acropolis</span><span>Page 05</span></div>
+        </div>
+      </section>
+
+      <!-- Page 6 -->
+      <section class="page profiles-page" data-title="Four Key Buildings">
+        <div class="page-inner">
+          <div class="profiles-spread">
+            <div class="profile-page-side">
+              <div class="profile-intro">
+                <h2>Four Key Buildings</h2>
+                <p class="profile-subtitle">A quick museum-guide profile of the main Acropolis monuments.</p>
+              </div>
+              <article class="museum-profile">
+                <img src="assets/parthenon.png" alt="Parthenon" />
+                <div>
+                <h3>Parthenon</h3>
+                <p><strong>What is it?</strong> A large temple dedicated to Athena Parthenos.</p>
+                <p><strong>Function:</strong> Acts as the city's sacred treasury and "bank" for gold reserves.</p>
+                <p><strong>Visual clue:</strong> The largest rectangular temple with many columns.</p>
+                </div>
+              </article>
+              <article class="museum-profile">
+                <img src="assets/erechtheion.png" alt="Erechtheion" />
+                <div>
+                <h3>Erechtheion</h3>
+                <p><strong>What is it?</strong> A sacred temple known for its unique female statue-columns.</p>
+                <p><strong>Function:</strong> Serves as the primary religious hub for ancient relics and cult rituals.</p>
+                <p><strong>Visual clue:</strong> Look for the Porch of the Maidens.</p>
+                </div>
+              </article>
+              </div>
+            <div class="profile-page-side">
+              <article class="museum-profile">
+                <img src="assets/propylaea.png" alt="Propylaea" />
+                <div>
+                <h3>Propylaea</h3>
+                <p><strong>What is it?</strong> The main entrance gateway to the Acropolis.</p>
+                <p><strong>Function:</strong> Serves as the ceremonial gateway and psychological transition into sacred space.</p>
+                <p><strong>Visual clue:</strong> A large gateway with steps and columns.</p>
+                </div>
+              </article>
+              <article class="museum-profile">
+                <img src="assets/athena-nike-temple.png" alt="Temple of Athena Nike" />
+                <div>
+                <h3>Temple of Athena Nike</h3>
+                <p><strong>What is it?</strong> A small temple dedicated to Athena as the goddess of victory.</p>
+                <p><strong>Function:</strong> Acts as a victory monument and spiritual protector of military success.</p>
+                <p><strong>Visual clue:</strong> A smaller temple near the entrance area.</p>
+                </div>
+              </article>
+              <div class="task-card profile-question"><strong>Quick question:</strong> Which building looks easiest to identify? Why?</div>
+              </div>
+          </div>
+          <div class="page-footer"><span>Building Profiles</span><span>Page 06</span></div>
+        </div>
+      </section>
+
+      <!-- Page 7 -->
+      <section class="page" data-title="Model Exploration">
+        <div class="page-inner">
+          <div class="book-spread">
+            <div class="book-side">
+              <h2>Explore the Model: Find the Four Buildings</h2>
+              <div class="image-card">
+                <img src="assets/numbered-model-overview.png" alt="Numbered model overview of four key buildings" />
+                <div class="image-caption">Use the numbered overview to compare position, size, and shape.</div>
+              </div>
+            </div>
+            <div class="book-side">
+              <p>This simplified model overview shows the four key buildings of the Acropolis.</p>
+              <p>Look at the position of each building. Pay attention to the size, shape, and location.</p>
+              <div class="number-list">
+                <div class="number-item">1. Parthenon - large temple</div>
+                <div class="number-item">2. Erechtheion - female statue-columns</div>
+                <div class="number-item">3. Propylaea - main entrance gateway</div>
+                <div class="number-item">4. Temple of Athena Nike - small temple near the entrance</div>
+              </div>
+              <div class="task-card"><strong>Task:</strong><br />Can you match each number with the correct building name? Complete <strong>Part D</strong> in your printed worksheet.</div>
+            </div>
+          </div>
+          <div class="page-footer"><span>Model Clues</span><span>Page 07</span></div>
+        </div>
+      </section>
+
+      <!-- Page 8 -->
+      <section class="page" data-title="Monument Tagging Activity">
+        <div class="page-inner">
+          <div class="book-spread">
+            <div class="book-side">
+              <div class="stage-pill">Phase 2: Learn with the 3D Model in Class</div>
+              <h2>Monument Tagging Activity</h2>
+              <div class="image-card">
+                <img src="assets/tagging-activity.png" alt="Monument tagging activity with numbered flags" />
+                <div class="image-caption">Groups use numbered flags to tag the Acropolis model.</div>
+              </div>
+            </div>
+            <div class="book-side">
+              <p>Now it is your turn to use the 3D model. Work with your group and use the numbered flags to label the four key buildings on the model.</p>
+              <div class="info-card">
+                <h3>How to Play</h3>
+                <ol>
+                  <li>Look carefully at the model.</li>
+                  <li>Read the building clues.</li>
+                  <li>Discuss with your group.</li>
+                  <li>Place the correct numbered flag.</li>
+                  <li>Check your answer with the teacher.</li>
+                </ol>
+              </div>
+              <details class="click-card">
+                <summary>Reminder: Use your printed worksheet</summary>
+                <div class="click-card-content">
+                  <img src="assets/worksheet-mockup.png" alt="Worksheet mockup" />
+                  <p>Use your printed worksheet to record your group answers. Look carefully at the shape, size, and position of each building.</p>
+                </div>
+              </details>
+            </div>
+          </div>
+          <div class="page-footer"><span>Tagging Activity</span><span>Page 08</span></div>
+        </div>
+      </section>
+
+      <!-- Page 9 -->
+      <section class="page" data-title="Mini Assembly">
+        <div class="page-inner">
+          <div class="book-spread">
+            <div class="book-side">
+              <h2>Mini Assembly</h2>
+              <div class="image-card">
+                <img src="assets/mini-assembly.png" alt="Mini Assembly scene" />
+                <div class="image-caption">A class mini assembly models civic decision-making in Athens.</div>
+              </div>
+              <details class="click-card assembly-left-note">
+                <summary>Textbook Connection: Athenian civic life</summary>
+                <div class="click-card-content">
+                  <img src="assets/textbook-athens-democracy.png" alt="Textbook excerpt on Athenian democracy" />
+                  <p>This activity is adapted from the textbook section on Athenian civic life and the Dewan Perhimpunan. Click the image to enlarge the textbook reference.</p>
+                </div>
+              </details>
+            </div>
+            <div class="book-side">
+              <p>In ancient Athens, citizens could discuss and vote on important public matters. This was part of civic life in the polis.</p>
+              <div class="task-card">
+                <h3>Scenario</h3>
+                <p>Athens has extra resources. What should the city build?</p>
+                <div class="quiz-options">
+                  <button onclick="vote('a new temple')">A new temple</button>
+                  <button onclick="vote('more ships')">More ships</button>
+                  <button onclick="vote('a public meeting space')">A public meeting space</button>
+                </div>
+                <div class="feedback" id="voteFeedback"></div>
+              </div>
+              <div class="key-card"><strong>Reflection:</strong><br />If you were a tour guide, which part of the Acropolis would you introduce first? Why?</div>
+            </div>
+          </div>
+          <div class="page-footer"><span>Civic Life</span><span>Page 09</span></div>
+        </div>
+      </section>
+
+      <!-- Page 10 -->
+      <section class="page reflection-page" data-title="Summary and Self-check">
+        <div class="page-inner">
+          <div class="reflection-spread">
+            <div class="reflection-side">
+              <h2>Summary and Reflection</h2>
+              <p>Today, you explored the Acropolis of Athens through maps, images, a 3D model, group discussion, tagging, and reflection.</p>
+              <div class="final-idea-box"><strong>Final Idea:</strong><br />The Acropolis was not only a group of buildings. It was a symbol of religion, protection, identity, architecture, and civic life in ancient Athens.</div>
+              <p class="reflection-prompt">Which part of the Acropolis would you introduce first as a tour guide? Why?</p>
+              <div class="writing-lines" aria-hidden="true">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </div>
+            <div class="reflection-side">
+              <h2>Self-check</h2>
+              <div class="check-group">
+                <h3>I understand...</h3>
+                <div class="reflection-checklist">
+                  <label><input type="checkbox" /> I can identify two geographical features of ancient Greece.</label>
+                  <label><input type="checkbox" /> I can explain what a polis is.</label>
+                  <label><input type="checkbox" /> I can describe why the Acropolis was important.</label>
+                </div>
+              </div>
+              <div class="check-group">
+                <h3>I can do...</h3>
+                <div class="reflection-checklist">
+                  <label><input type="checkbox" /> I can identify four key buildings of the Acropolis.</label>
+                  <label><input type="checkbox" /> I can locate at least three buildings on the 3D model.</label>
+                  <label><input type="checkbox" /> I can describe one part of the Acropolis that I find impressive.</label>
+                </div>
+              </div>
+              <p class="reflection-closing">Well done. You have completed your Acropolis learning journey.</p>
+            </div>
+          </div>
+          <div class="page-footer"><span>Reflection</span><span>Page 10</span></div>
+        </div>
+      </section>
+    </div>
+    </div>
+
+    <div class="navigation">
+      <button class="secondary" onclick="prevPage()">Previous</button>
+      <div class="page-title-mini" id="pageTitleMini">Cover</div>
+      <button onclick="nextPage()">Next</button>
+    </div>
+    <div class="image-modal" id="imageModal" aria-hidden="true">
+      <button class="modal-close" type="button" onclick="closeImageModal()" aria-label="Close enlarged image">x</button>
+      <div class="modal-box">
+        <img id="modalImage" src="" alt="Enlarged image" />
+        <p class="modal-caption" id="modalCaption"></p>
+      </div>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/page-flip/dist/js/page-flip.browser.min.js"></script>
+  <script>
+    const printPages = Array.from(document.querySelectorAll('.print-view .page'));
+    const book = document.getElementById('book');
+    const pageLabel = document.getElementById('pageLabel');
+    const progressBar = document.getElementById('progressBar');
+    const pageTitleMini = document.getElementById('pageTitleMini');
+    let pages = [];
+    let currentPage = 0;
+    let pageFlip = null;
+
+    printPages.forEach((page, index) => {
+      page.setAttribute('data-page', String(index + 1).padStart(2, '0'));
+    });
+
+    function addChildrenClone(target, source) {
+      Array.from(source.childNodes).forEach((node) => {
+        target.appendChild(node.cloneNode(true));
+      });
+    }
+
+    function makeFlipPage(sourceSpread, contentSource, options = {}) {
+      const page = document.createElement('div');
+      page.className = ['page', 'flipbook-page', ...(options.classes || [])].join(' ');
+      page.dataset.title = options.title || sourceSpread.dataset.title || '';
+      page.dataset.spreadNumber = options.spreadNumber || sourceSpread.dataset.page || '';
+      page.setAttribute('data-page', options.pageLabel || sourceSpread.dataset.page || '');
+
+      if (options.hard) {
+        page.classList.add('hard');
+        page.setAttribute('data-density', 'hard');
+      }
+
+      addChildrenClone(page, contentSource);
+      enhanceFlipPage(page, options.spreadNumber || sourceSpread.dataset.page || '', options.sideIndex);
+
+      if (options.footer !== false && !page.querySelector('.page-footer')) {
+        const sourceFooter = sourceSpread.querySelector('.page-footer');
+        if (sourceFooter) page.appendChild(sourceFooter.cloneNode(true));
+      }
+
+      book.appendChild(page);
+      return page;
+    }
+
+    function moveIntoZone(page, className, nodes) {
+      const zone = document.createElement('div');
+      zone.className = className;
+      nodes.filter(Boolean).forEach((node) => zone.appendChild(node));
+      page.appendChild(zone);
+      return zone;
+    }
+
+    function enhanceFlipPage(page, spreadNumber, sideIndex) {
+      if (sideIndex === undefined) return;
+
+      if (spreadNumber === '02' && sideIndex === 0) {
+        const stage = page.querySelector(':scope > .stage-pill');
+        const heading = page.querySelector(':scope > h2');
+        const image = page.querySelector(':scope > .image-card');
+        const support = document.createElement('div');
+        support.className = 'designed-strip';
+        support.innerHTML = `
+          <strong>Model focus</strong>
+          <div class="clue-chip-row">
+            <span>high ground</span>
+            <span>site layout</span>
+            <span>building positions</span>
+          </div>
+        `;
+        moveIntoZone(page, 'editorial-top-zone', [stage, heading]);
+        moveIntoZone(page, 'editorial-lower-zone', [image, support]);
+      }
+
+      if (spreadNumber === '02' && sideIndex === 1) {
+        const paragraphs = Array.from(page.querySelectorAll(':scope > p'));
+        const key = page.querySelector(':scope > .key-card');
+        const task = page.querySelector(':scope > .task-card');
+        const anchor = document.createElement('div');
+        anchor.className = 'observation-anchor';
+        anchor.innerHTML = '<strong>Observation hint</strong><p>Start with the whole hill, then compare where the largest and smallest buildings sit.</p>';
+        moveIntoZone(page, 'editorial-explain-zone', paragraphs);
+        moveIntoZone(page, 'guided-observation-zone', [key, task, anchor]);
+      }
+
+      if (spreadNumber === '03' && sideIndex === 0) {
+        const heading = page.querySelector(':scope > h2');
+        const image = page.querySelector(':scope > .image-card');
+        const clues = document.createElement('div');
+        clues.className = 'designed-strip map-clues-strip';
+        clues.innerHTML = `
+          <strong>Map clues</strong>
+          <div class="clue-chip-row">
+            <span>mountains</span>
+            <span>islands</span>
+            <span>seas</span>
+            <span>peninsula</span>
+          </div>
+        `;
+        moveIntoZone(page, 'editorial-top-zone', [heading]);
+        moveIntoZone(page, 'editorial-lower-zone', [image, clues]);
+      }
+
+      if (spreadNumber === '03' && sideIndex === 1) {
+        const paragraphs = Array.from(page.querySelectorAll(':scope > p'));
+        const key = page.querySelector(':scope > .key-card');
+        const task = page.querySelector(':scope > .task-card');
+        const source = page.querySelector(':scope > details.click-card');
+        if (source) source.classList.add('source-bottom-module');
+        moveIntoZone(page, 'editorial-explain-zone', paragraphs);
+        moveIntoZone(page, 'guided-observation-zone', [key, task, source]);
+      }
+
+      if (spreadNumber === '04' && sideIndex === 0) {
+        const heading = page.querySelector(':scope > h2');
+        const paragraphs = Array.from(page.querySelectorAll(':scope > p'));
+        const key = page.querySelector(':scope > .key-card');
+        const task = page.querySelector(':scope > .task-card');
+        moveIntoZone(page, 'editorial-explain-zone', [heading, ...paragraphs]);
+        moveIntoZone(page, 'concept-lower-zone', [key, task]);
+      }
+
+      if (spreadNumber === '04' && sideIndex === 1) {
+        const image = page.querySelector(':scope > .image-card');
+        const clue = document.createElement('div');
+        clue.className = 'visual-clue-strip';
+        clue.innerHTML = '<strong>Visual clue</strong><p>Read the diagram as a community system: citizens, government, worship, and shared public spaces all belong to the polis.</p>';
+        moveIntoZone(page, 'editorial-lower-zone', [image, clue]);
+      }
+
+      if (spreadNumber === '05' && sideIndex === 0) {
+        const image = page.querySelector(':scope > .image-card');
+        const clues = document.createElement('div');
+        clues.className = 'designed-strip';
+        clues.innerHTML = `
+          <strong>Read the site</strong>
+          <div class="clue-chip-row">
+            <span>high ground</span>
+            <span>defensive position</span>
+            <span>sacred site</span>
+          </div>
+        `;
+        moveIntoZone(page, 'editorial-lower-zone', [image, clues]);
+      }
+
+      if (spreadNumber === '05' && sideIndex === 1) {
+        const heading = page.querySelector(':scope > h2');
+        const paragraphs = Array.from(page.querySelectorAll(':scope > p'));
+        const cards = page.querySelector(':scope > .two-card-row');
+        const task = page.querySelector(':scope > .task-card');
+        if (cards) cards.classList.add('importance-module');
+        if (task) task.classList.add('bottom-task-module');
+        moveIntoZone(page, 'editorial-explain-zone', [heading, ...paragraphs]);
+        moveIntoZone(page, 'importance-module', [cards]);
+        moveIntoZone(page, 'guided-observation-zone', [task]);
+      }
+
+      if (spreadNumber === '06' && sideIndex === 0) {
+        const intro = page.querySelector(':scope > .profile-intro');
+        const profiles = Array.from(page.querySelectorAll(':scope > .museum-profile'));
+        const summary = document.createElement('div');
+        summary.className = 'designed-strip profile-summary-module';
+        summary.innerHTML = `
+          <strong>Museum guide lens</strong>
+          <p>Compare each building by purpose, position, and visual clue before matching it on the model.</p>
+        `;
+        moveIntoZone(page, 'editorial-top-zone', [intro]);
+        moveIntoZone(page, 'concept-lower-zone', [...profiles, summary]);
+      }
+
+      if (spreadNumber === '06' && sideIndex === 1) {
+        const profiles = Array.from(page.querySelectorAll(':scope > .museum-profile'));
+        const question = page.querySelector(':scope > .profile-question');
+        if (question) {
+          question.classList.add('profile-summary-module');
+          question.innerHTML = '<strong>Guide question</strong><br />Which building looks easiest to identify? Why?';
+        }
+        moveIntoZone(page, 'concept-lower-zone', [...profiles, question]);
+      }
+
+      if (spreadNumber === '07' && sideIndex === 0) {
+        const heading = page.querySelector(':scope > h2');
+        const image = page.querySelector(':scope > .image-card');
+        const clues = document.createElement('div');
+        clues.className = 'designed-strip';
+        clues.innerHTML = `
+          <strong>What to compare</strong>
+          <div class="clue-chip-row">
+            <span>number</span>
+            <span>position</span>
+            <span>shape</span>
+            <span>size</span>
+          </div>
+        `;
+        moveIntoZone(page, 'editorial-top-zone', [heading]);
+        moveIntoZone(page, 'editorial-lower-zone', [image, clues]);
+      }
+
+      if (spreadNumber === '07' && sideIndex === 1) {
+        const paragraphs = Array.from(page.querySelectorAll(':scope > p'));
+        const numbers = page.querySelector(':scope > .number-list');
+        const task = page.querySelector(':scope > .task-card');
+        if (task) task.classList.add('bottom-task-module');
+        moveIntoZone(page, 'editorial-explain-zone', paragraphs);
+        moveIntoZone(page, 'number-module', [numbers]);
+        moveIntoZone(page, 'guided-observation-zone', [task]);
+      }
+
+      if (spreadNumber === '08' && sideIndex === 0) {
+        const stage = page.querySelector(':scope > .stage-pill');
+        const heading = page.querySelector(':scope > h2');
+        const image = page.querySelector(':scope > .image-card');
+        const clues = document.createElement('div');
+        clues.className = 'designed-strip';
+        clues.innerHTML = `
+          <strong>You will use</strong>
+          <div class="clue-chip-row">
+            <span>model</span>
+            <span>numbered flags</span>
+            <span>building clues</span>
+          </div>
+        `;
+        moveIntoZone(page, 'editorial-top-zone', [stage, heading]);
+        moveIntoZone(page, 'editorial-lower-zone', [image, clues]);
+      }
+
+      if (spreadNumber === '08' && sideIndex === 1) {
+        const intro = page.querySelector(':scope > p');
+        const info = page.querySelector(':scope > .info-card');
+        const reminder = page.querySelector(':scope > details.click-card');
+        if (info) info.classList.add('instruction-module');
+        if (reminder) reminder.classList.add('reminder-anchor');
+        moveIntoZone(page, 'editorial-explain-zone', [intro]);
+        moveIntoZone(page, 'guided-observation-zone', [info, reminder]);
+      }
+
+      if (spreadNumber === '09' && sideIndex === 0) {
+        const heading = page.querySelector(':scope > h2');
+        const image = page.querySelector(':scope > .image-card');
+        const source = page.querySelector(':scope > details.click-card');
+        if (source) source.classList.add('textbook-anchor');
+        moveIntoZone(page, 'editorial-top-zone', [heading]);
+        moveIntoZone(page, 'editorial-lower-zone', [image, source]);
+      }
+
+      if (spreadNumber === '09' && sideIndex === 1) {
+        const intro = page.querySelector(':scope > p');
+        const scenario = page.querySelector(':scope > .task-card');
+        const reflection = page.querySelector(':scope > .key-card');
+        if (scenario) scenario.classList.add('scenario-module');
+        if (reflection) reflection.classList.add('reflection-module');
+        moveIntoZone(page, 'editorial-explain-zone', [intro]);
+        moveIntoZone(page, 'guided-observation-zone', [scenario, reflection]);
+      }
+
+      if (spreadNumber === '10' && sideIndex === 0) {
+        const heading = page.querySelector(':scope > h2');
+        const paragraph = page.querySelector(':scope > p');
+        const finalIdea = page.querySelector(':scope > .final-idea-box');
+        const prompt = page.querySelector(':scope > .reflection-prompt');
+        const lines = page.querySelector(':scope > .writing-lines');
+        const recap = document.createElement('div');
+        recap.className = 'designed-strip recap-module';
+        recap.innerHTML = `
+          <strong>Takeaway</strong>
+          <div class="clue-chip-row">
+            <span>place</span>
+            <span>people</span>
+            <span>power</span>
+            <span>memory</span>
+          </div>
+        `;
+        moveIntoZone(page, 'editorial-explain-zone', [heading, paragraph, finalIdea]);
+        moveIntoZone(page, 'guided-observation-zone', [prompt, lines, recap]);
+      }
+
+      if (spreadNumber === '10' && sideIndex === 1) {
+        const heading = page.querySelector(':scope > h2');
+        const groups = Array.from(page.querySelectorAll(':scope > .check-group'));
+        const closing = page.querySelector(':scope > .reflection-closing');
+        const takeaway = document.createElement('div');
+        takeaway.className = 'designed-strip takeaway-module';
+        takeaway.innerHTML = '<strong>Closing check</strong><p>Use the ticks as a quick review before sharing your final reflection.</p>';
+        moveIntoZone(page, 'editorial-top-zone', [heading]);
+        moveIntoZone(page, 'self-check-module', groups);
+        moveIntoZone(page, 'guided-observation-zone', [takeaway, closing]);
+      }
+    }
+
+    function pageRoleClasses(spreadNumber, sideIndex) {
+      const sideClass = sideIndex === 0 ? 'left-page' : 'right-page';
+      const classes = [`spread-${spreadNumber}`, sideClass];
+
+      if (['02', '03', '05', '07', '08', '09'].includes(spreadNumber) && sideIndex === 0) {
+        classes.push('image-led');
+      }
+
+      if (['02', '03', '04', '05', '07'].includes(spreadNumber) && sideIndex === 1) {
+        classes.push('text-led');
+      }
+
+      if (['08', '09'].includes(spreadNumber) && sideIndex === 1) {
+        classes.push('activity-led');
+      }
+
+      if (spreadNumber === '06') {
+        classes.push('profile-led');
+      }
+
+      if (spreadNumber === '10') {
+        classes.push('reflection-led');
+      }
+
+      return classes;
+    }
+
+    function buildFlipbookPages() {
+      book.innerHTML = '';
+
+      const coverSpread = printPages[0];
+      makeFlipPage(coverSpread, coverSpread, {
+        title: 'Cover',
+        spreadNumber: '01',
+        pageLabel: '01',
+        classes: ['hard', 'cover-page', 'hero-page'],
+        hard: true,
+        footer: false
+      });
+
+      printPages.slice(1).forEach((spread) => {
+        const spreadNumber = spread.dataset.page || '';
+        const title = spread.dataset.title || '';
+        const spreadContainer = spread.querySelector('.book-spread, .profiles-spread, .reflection-spread');
+        if (!spreadContainer) return;
+
+        const pageSides = Array.from(spreadContainer.children).filter((child) => {
+          return child.classList.contains('book-side') ||
+            child.classList.contains('profile-page-side') ||
+            child.classList.contains('reflection-side');
+        });
+
+        pageSides.forEach((side, sideIndex) => {
+          makeFlipPage(spread, side, {
+            title,
+            spreadNumber,
+            pageLabel: spreadNumber,
+            sideIndex,
+            classes: pageRoleClasses(spreadNumber, sideIndex)
+          });
+        });
+      });
+
+      const backCover = document.createElement('div');
+      backCover.className = 'page flipbook-page hard cover-page back-cover-page';
+      backCover.dataset.title = 'Back Cover';
+      backCover.dataset.spreadNumber = String(printPages.length).padStart(2, '0');
+      backCover.setAttribute('data-page', String(printPages.length).padStart(2, '0'));
+      backCover.setAttribute('data-density', 'hard');
+      backCover.innerHTML = `
+        <div class="book-side">
+          <h2>Exploring the Acropolis of Athens</h2>
+          <p>End of guide</p>
+        </div>
+        <div class="page-footer"><span>Acropolis Guide</span><span>Back Cover</span></div>
+      `;
+      book.appendChild(backCover);
+
+      pages = Array.from(book.querySelectorAll('.page'));
+    }
+
+    function updatePageChrome(index) {
+      currentPage = Math.max(0, Math.min(index, pages.length - 1));
+      const current = pages[currentPage];
+      const spreadNumber = current?.dataset.spreadNumber || String(currentPage + 1);
+      const spreadIndex = Math.max(1, Math.min(Number(spreadNumber) || 1, printPages.length));
+      pageLabel.textContent = `Page ${spreadIndex} / ${printPages.length}`;
+      pageTitleMini.textContent = pages[currentPage].dataset.title || '';
+      progressBar.style.width = `${(spreadIndex / printPages.length) * 100}%`;
+    }
+
+    function showPage(index, direction = 'next') {
+      const oldPage = currentPage;
+      updatePageChrome(index);
+      pages.forEach((page, i) => {
+        page.classList.remove('active', 'flip-next', 'flip-prev');
+        page.classList.toggle('active', i === currentPage);
+      });
+
+      const activePage = pages[currentPage];
+      if (currentPage !== oldPage) {
+        activePage.classList.add(direction === 'prev' ? 'flip-prev' : 'flip-next');
+
+        setTimeout(() => {
+          activePage.classList.remove('flip-next', 'flip-prev');
+        }, 520);
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function nextPage() {
+      if (pageFlip) {
+        pageFlip.flipNext();
+      } else {
+        showPage(currentPage + 1, 'next');
+      }
+    }
+
+    function prevPage() {
+      if (pageFlip) {
+        pageFlip.flipPrev();
+      } else {
+        showPage(currentPage - 1, 'prev');
+      }
+    }
+
+    function downloadPdf() {
+      window.print();
+    }
+
+    function vote(choice) {
+      const feedback = document.getElementById('voteFeedback');
+      feedback.textContent = `Your group voted for ${choice}. Now explain your reason in one sentence.`;
+    }
+
+    function openImageModal(imageElement) {
+      const modal = document.getElementById('imageModal');
+      const modalImage = document.getElementById('modalImage');
+      const modalCaption = document.getElementById('modalCaption');
+
+      modalImage.src = imageElement.src;
+      modalImage.alt = imageElement.alt || 'Enlarged image';
+      modalCaption.textContent = imageElement.alt || 'Click outside the image or press Esc to close.';
+
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+    }
+
+    function closeImageModal() {
+      const modal = document.getElementById('imageModal');
+      const modalImage = document.getElementById('modalImage');
+
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      modalImage.src = '';
+    }
+
+    function attachImageModalHandlers() {
+      document.querySelectorAll('.flipbook-view .image-card img, .flipbook-view .click-card-content img, .flipbook-view .museum-profile img').forEach((img) => {
+      img.classList.add('zoomable');
+      img.title = 'Click to enlarge';
+      img.addEventListener('click', () => openImageModal(img));
+      });
+    }
+
+    document.getElementById('imageModal').addEventListener('click', (event) => {
+      if (event.target.id === 'imageModal') {
+        closeImageModal();
+      }
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') closeImageModal();
+      if (document.getElementById('imageModal').classList.contains('open')) return;
+      if (event.key === 'ArrowRight') nextPage();
+      if (event.key === 'ArrowLeft') prevPage();
+    });
+
+    function initializePageFlip() {
+      buildFlipbookPages();
+      attachImageModalHandlers();
+
+      if (!window.St || !St.PageFlip) {
+        showPage(0, 'next');
+        return;
+      }
+
+      document.body.classList.add('pageflip-ready');
+      pages.forEach((page) => page.classList.remove('active', 'flip-next', 'flip-prev'));
+
+      pageFlip = new St.PageFlip(document.getElementById('book'), {
+        width: 520,
+        height: 720,
+        size: 'stretch',
+        minWidth: 320,
+        maxWidth: 524,
+        minHeight: 440,
+        maxHeight: 760,
+        showCover: true,
+        usePortrait: true,
+        drawShadow: true,
+        maxShadowOpacity: 0.25,
+        flippingTime: 700,
+        mobileScrollSupport: true,
+        useMouseEvents: true
+      });
+
+      pageFlip.loadFromHTML(book.querySelectorAll('.page'));
+      pageFlip.on('flip', (event) => {
+        updatePageChrome(event.data);
+      });
+      updatePageChrome(0);
+    }
+
+    initializePageFlip();
+  </script>
+</body>
+</html>

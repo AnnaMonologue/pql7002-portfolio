@@ -1,0 +1,408 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PQL 7002 Portfolio - SHEN YIHAN</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script>
+// 调色盘
+tailwind.config = {
+    theme: {
+        extend: {
+            colors: {
+                primary: '#8BAA9E',       
+                secondary: '#CBA36F',     
+                accent: '#A69CAC',        
+                success: '#7BA082',       
+                warning: '#D99C6A',       
+                danger: '#C87971',        
+                entertainment: '#C5979D', 
+                beige: '#F5F2EB',         
+                light: '#FAFAF9',
+                dark: '#5C5E58',          
+                fanblue: '#8BA1B7',
+                fanbg: '#E2E8EE'
+            },
+            fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] }
+        }
+    }
+}
+</script>
+<style>
+    .card-shadow { box-shadow: 0 10px 25px -5px rgba(139, 170, 158, 0.1), 0 8px 10px -6px rgba(139, 170, 158, 0.05); }
+    .card-hover { transition: all 0.3s ease; }
+    .card-hover:hover { transform: translateY(-3px); box-shadow: 0 20px 25px -5px rgba(139, 170, 158, 0.15), 0 10px 10px -5px rgba(139, 170, 158, 0.1); }
+    
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+    
+    .fade-in { animation: fadeIn 0.4s ease-in-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+</style>
+</head>
+<body class="bg-[#E6EFE9] min-h-screen pb-12 overflow-y-scroll text-dark font-sans">
+<div class="container mx-auto px-4 py-10 max-w-[85rem]">
+
+    <header class="text-center mb-10 fade-in">
+        <h1 class="text-3xl md:text-4xl font-bold mb-4 flex justify-center items-center gap-3 text-dark">
+            <i class="fa fa-leaf text-primary"></i> PQL 7002 Portfolio & Reflections
+        </h1>
+        <p class="text-gray-500 mb-6 text-sm md:text-base">Instructional Design and Technology | Universiti Malaya</p>
+        
+        <div class="inline-flex flex-wrap justify-center bg-white/80 backdrop-blur-sm rounded-xl p-2 card-shadow gap-2">
+            <button id="nav-home" class="nav-btn px-6 py-2.5 rounded-lg font-bold transition-all text-sm md:text-base bg-primary text-white shadow-md" onclick="switchPage('home')">
+                <i class="fa fa-home mr-2"></i>Home & Intro
+            </button>
+            <button id="nav-weekly" class="nav-btn px-6 py-2.5 rounded-lg font-bold transition-all text-sm md:text-base bg-white text-dark hover:bg-beige" onclick="switchPage('weekly')">
+                <i class="fa fa-book mr-2"></i>Weekly Logs
+            </button>
+            <button id="nav-assign1" class="nav-btn px-6 py-2.5 rounded-lg font-bold transition-all text-sm md:text-base bg-white text-dark hover:bg-beige" onclick="switchPage('assign1')">
+                <i class="fa fa-map-signs mr-2"></i>Assignment 1
+            </button>
+            <button id="nav-assign2" class="nav-btn px-6 py-2.5 rounded-lg font-bold transition-all text-sm md:text-base bg-white text-dark hover:bg-beige" onclick="switchPage('assign2')">
+                <i class="fa fa-cubes mr-2"></i>Assignment 2
+            </button>
+        </div>
+    </header>
+
+    <div id="page-home" class="page-view fade-in" style="display: block;">
+        <div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+            <div class="lg:col-span-2 space-y-6">
+                <div class="bg-white rounded-2xl p-8 card-shadow card-hover border-t-4 border-primary">
+                    <div class="w-20 h-20 bg-primary/20 rounded-full flex items-center justify-center mb-6 overflow-hidden">
+                        <i class="fa fa-user-circle-o text-4xl text-primary"></i>
+                    </div>
+                    <h2 class="text-2xl font-bold mb-2">Hello, I am SHEN YIHAN</h2>
+                    <p class="text-gray-500 mb-6 text-sm">Matric: 24053722 | Master's Student</p>
+                    <div class="space-y-3 text-sm text-gray-700">
+                        <p class="flex items-center"><i class="fa fa-institution text-secondary mr-3 w-4"></i> Universiti Malaya</p>
+                        <p class="flex items-center"><i class="fa fa-book text-secondary mr-3 w-4"></i> PQL 7002: Instructional Design</p>
+                        <p class="flex items-center"><i class="fa fa-user-o text-secondary mr-3 w-4"></i> Prof. Dr. Farrah Dina Yusop</p>
+                    </div>
+                </div>
+            </div>
+            <div class="lg:col-span-3">
+                <div class="bg-light rounded-2xl p-8 card-shadow card-hover h-full flex flex-col justify-center">
+                    <h2 class="text-2xl font-bold mb-4 flex items-center"><i class="fa fa-quote-left text-primary/40 mr-3 text-3xl"></i>Welcome to My Reflection Space</h2>
+                    <div class="space-y-4 text-gray-600 leading-relaxed">
+                        <p>This digital portfolio presents my learning progress in the PQL 7002 course. The coursework challenged my early assumptions about educational materials. I realized that effective teaching requires more than just presenting information.</p>
+                        <p>I began by evaluating a physical science exhibit at Petrosains, then designed an interactive 3D module for secondary school history students. These course assignments taught me how to apply abstract learning theories to practical instructional design.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="page-weekly" class="page-view fade-in" style="display: none;">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+            <div class="lg:col-span-1 space-y-3">
+                <button id="tab-weekly-1" class="tab-weekly w-full text-left p-4 rounded-xl font-bold transition-all bg-primary text-white shadow-md border-l-4 border-secondary" onclick="switchSub('weekly', '1')">
+                    W1-4: Intro to ID Models
+                </button>
+                <button id="tab-weekly-2" class="tab-weekly w-full text-left p-4 rounded-xl font-bold transition-all bg-white text-gray-600 hover:bg-primary/10 border-l-4 border-transparent" onclick="switchSub('weekly', '2')">
+                    W5-8: Learning Theories
+                </button>
+                <button id="tab-weekly-3" class="tab-weekly w-full text-left p-4 rounded-xl font-bold transition-all bg-white text-gray-600 hover:bg-primary/10 border-l-4 border-transparent" onclick="switchSub('weekly', '3')">
+                    W9-13: Modern Frameworks
+                </button>
+            </div>
+            <div class="lg:col-span-3">
+                <div id="weekly-1" class="content-weekly bg-white rounded-2xl p-6 card-shadow fade-in" style="display: block;">
+                    <h3 class="text-2xl font-bold mb-4 border-b border-gray-100 pb-3 text-primary">Instructional Design Models (Weeks 1-4)</h3>
+                    <p class="text-gray-600 mb-6">Reflecting on ADDIE, Kemp, and ASSURE models. This section is reserved for future course notes integration...</p>
+                </div>
+                <div id="weekly-2" class="content-weekly bg-white rounded-2xl p-6 card-shadow fade-in" style="display: none;">
+                    <h3 class="text-2xl font-bold mb-4 border-b border-gray-100 pb-3 text-secondary">Learning Theories (Weeks 5-8)</h3>
+                    <p class="text-gray-600">Behaviorism, Cognitivism, and Constructivism...</p>
+                </div>
+                <div id="weekly-3" class="content-weekly bg-white rounded-2xl p-6 card-shadow fade-in" style="display: none;">
+                    <h3 class="text-2xl font-bold mb-4 border-b border-gray-100 pb-3 text-accent">Modern Tech Frameworks (Weeks 9-13)</h3>
+                    <p class="text-gray-600">TPACK, SAMR, and Community of Inquiry (CoI)...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="page-assign1" class="page-view fade-in" style="display: none;">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+            
+            <div class="lg:col-span-1 space-y-2 max-h-[70vh] overflow-y-auto pr-1">
+                <h4 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-2">A1 Chapters (art1-9)</h4>
+                <button id="tab-assign1-1" class="tab-assign1 w-full text-left p-3 rounded-xl font-bold text-xs transition-all bg-primary text-white shadow-md border-l-4 border-secondary" onclick="switchSub('assign1', '1')">1. Exhibit & Target Audience</button>
+                <button id="tab-assign1-2" class="tab-assign1 w-full text-left p-3 rounded-xl font-bold text-xs transition-all bg-white text-gray-600 hover:bg-primary/10 border-l-4 border-transparent" onclick="switchSub('assign1', '2')">2. Intended Learning Objectives</button>
+                <button id="tab-assign1-3" class="tab-assign1 w-full text-left p-3 rounded-xl font-bold text-xs transition-all bg-white text-gray-600 hover:bg-primary/10 border-l-4 border-transparent" onclick="switchSub('assign1', '3')">3. Psychomotor & Affective Domain</button>
+                <button id="tab-assign1-4" class="tab-assign1 w-full text-left p-3 rounded-xl font-bold text-xs transition-all bg-white text-gray-600 hover:bg-primary/10 border-l-4 border-transparent" onclick="switchSub('assign1', '4')">4. Kolb's Learning Cycle Map</button>
+                <button id="tab-assign1-5" class="tab-assign1 w-full text-left p-3 rounded-xl font-bold text-xs transition-all bg-white text-gray-600 hover:bg-primary/10 border-l-4 border-transparent" onclick="switchSub('assign1', '5')">5. Cognitive Gaps & Task Trap</button>
+                <button id="tab-assign1-6" class="tab-assign1 w-full text-left p-3 rounded-xl font-bold text-xs transition-all bg-white text-gray-600 hover:bg-primary/10 border-l-4 border-transparent" onclick="switchSub('assign1', '6')">6. UDL Accessibility Barriers</button>
+                <button id="tab-assign1-7" class="tab-assign1 w-full text-left p-3 rounded-xl font-bold text-xs transition-all bg-white text-gray-600 hover:bg-primary/10 border-l-4 border-transparent" onclick="switchSub('assign1', '7')">7. Redesign: Digital Scaffolding</button>
+                <button id="tab-assign1-8" class="tab-assign1 w-full text-left p-3 rounded-xl font-bold text-xs transition-all bg-white text-gray-600 hover:bg-primary/10 border-l-4 border-transparent" onclick="switchSub('assign1', '8')">8. Redesign: Inclusive Hardware</button>
+                <button id="tab-assign1-9" class="tab-assign1 w-full text-left p-3 rounded-xl font-bold text-xs transition-all bg-white text-gray-600 hover:bg-primary/10 border-l-4 border-transparent" onclick="switchSub('assign1', '9')">9. Growth & Paradigm Shift</button>
+            </div>
+            
+            <div class="lg:col-span-3">
+                <div id="assign1-1" class="content-assign1 bg-white rounded-2xl p-6 card-shadow fade-in" style="display: block;">
+                    <h3 class="text-2xl font-bold mb-4 border-b border-gray-100 pb-3 text-warning">Exhibit Overview & Target Audience</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+                        <div class="space-y-4 text-gray-600 leading-relaxed text-sm">
+                            <p>Our fieldwork at <strong>Petrosains, The Discovery Centre</strong>, centered on a critical design analysis of <strong>"The Air Stream" (Bernoulli Blower)</strong> exhibit.</p>
+                            <p>The target audience consists predominantly of lower secondary students, children, and general science center museum visitors. The installation is engineered as a highly dynamic, public-facing exhibit designed to introduce fluid dynamics in a casual, open-floor environment.</p>
+                        </div>
+                        <div class="space-y-2">
+                            <img src="images/art1.jpg" alt="Exhibit Overview" class="w-full rounded-xl shadow-md border border-gray-100 hover:scale-[1.02] transition-transform">
+                            <p class="text-[11px] text-center text-gray-400">Figure 1: The Air Stream Installation Setup</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="assign1-2" class="content-assign1 bg-white rounded-2xl p-6 card-shadow fade-in" style="display: none;">
+                    <h3 class="text-2xl font-bold mb-4 border-b border-gray-100 pb-3 text-warning">Intended Learning Objectives (LOs)</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+                        <div class="space-y-4 text-gray-600 leading-relaxed text-sm">
+                            <p>According to instructional design standards, the station intends to achieve clear outcomes across two core domains:</p>
+                            <ul class="list-disc list-inside space-y-2 font-medium text-gray-700">
+                                <li><span class="text-primary">Cognitive Domain:</span> Learners should be able to state at least two key facts regarding how fast-moving air streams create pressure differentials to keep the ball afloat.</li>
+                                <li><span class="text-secondary">Psychomotor Domain:</span> Learners physically manipulate, balance, and successfully guide the ball through suspended air rings.</li>
+                            </ul>
+                        </div>
+                        <div class="space-y-2">
+                            <img src="images/art2.png" alt="Learning Objectives" class="w-full rounded-xl shadow-md border border-gray-100">
+                            <p class="text-[11px] text-center text-gray-400">Figure 2: Stated Educational Metrics</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="assign1-3" class="content-assign1 bg-white rounded-2xl p-6 card-shadow fade-in" style="display: none;">
+                    <h3 class="text-2xl font-bold mb-4 border-b border-gray-100 pb-3 text-warning">Psychomotor and Affective Engagement</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+                        <div class="space-y-4 text-gray-600 leading-relaxed text-sm">
+                            <p>In the <strong>affective domain</strong>, the exhibit is undeniably a masterpiece. It serves as an immediate crowd-puller. The physical sensation of air pressure and the instant visual reward of a levitating ball establish an immediate behavioral engagement loop.</p>
+                            <p>Visitors are drawn instinctively to the psychomotor challenge of balancing the ball, resulting in high levels of situational interest and active participation on the museum floor.</p>
+                        </div>
+                        <div class="space-y-2">
+                            <img src="images/art3.png" alt="Visitor Engagement" class="w-full rounded-xl shadow-md border border-gray-100">
+                            <p class="text-[11px] text-center text-gray-400">Figure 3: Psychomotor Interaction Patterns</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="assign1-4" class="content-assign1 bg-white rounded-2xl p-6 card-shadow fade-in" style="display: none;">
+                    <h3 class="text-2xl font-bold mb-4 border-b border-gray-100 pb-3 text-warning">Theoretical Application: Kolb's Learning Cycle</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+                        <div class="space-y-4 text-gray-600 leading-relaxed text-sm">
+                            <p>To analyze the learning mechanics rigorously, we mapped visitor behaviors to <strong>Kolb's Experiential Learning Cycle (1984)</strong>.</p>
+                            <p>The exhibit beautifully sparks Stage 1 (<em>Concrete Experience</em>) through tactile play and initiates Stage 2 (<em>Reflective Observation</em>) as users adjust their hands to steady the ball. However, without systematic mediation, the cycle frequently halts before reaching deeper theoretical integration.</p>
+                        </div>
+                        <div class="space-y-2">
+                            <img src="images/art4.png" alt="Kolb's Cycle Analysis" class="w-full rounded-xl shadow-md border border-gray-100">
+                            <p class="text-[11px] text-center text-gray-400">Figure 4: Behavioral Mapping via Learning Cycle</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="assign1-5" class="content-assign1 bg-white rounded-2xl p-6 card-shadow fade-in" style="display: none;">
+                    <h3 class="text-2xl font-bold mb-4 border-b border-gray-100 pb-3 text-warning">Cognitive Gaps: The "Task-Completion" Trap</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+                        <div class="space-y-4 text-gray-600 leading-relaxed text-sm">
+                            <p>A critical instructional flaw identified during our observation was the <strong>task-completion trap</strong>. Because the exhibit frames the experience as a game (getting the ball through the hoop), children focus exclusively on winning the game rather than learning the science.</p>
+                            <p>The static information boards explaining Bernoulli's principle were ignored because they were visually detached from the active air stream, proving that <em>fun interaction does not guarantee cognitive mastery</em>.</p>
+                        </div>
+                        <div class="space-y-2">
+                            <img src="images/art5.png" alt="Cognitive Gap" class="w-full rounded-xl shadow-md border border-gray-100">
+                            <p class="text-[11px] text-center text-gray-400">Figure 5: Task Focus vs. Conceptual Learning Breakdown</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="assign1-6" class="content-assign1 bg-white rounded-2xl p-6 card-shadow fade-in" style="display: none;">
+                    <h3 class="text-2xl font-bold mb-4 border-b border-gray-100 pb-3 text-warning">Universal Design for Learning (UDL) Blind Spots</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+                        <div class="space-y-4 text-gray-600 leading-relaxed text-sm">
+                            <p>Evaluating the exhibit through the lens of <strong>Universal Design for Learning (UDL)</strong> revealed significant accessibility blind spots:</p>
+                            <ul class="list-disc list-inside space-y-2 text-gray-600">
+                                <li><strong>Auditory Barriers:</strong> Extreme ambient museum noise rendered any subtle audio cues completely ineffective.</li>
+                                <li><strong>Physical Barriers:</strong> Fixed infrastructure heights and heavy motor coordination requirements unconsciously excluded younger children and wheelchair users.</li>
+                            </ul>
+                        </div>
+                        <div class="space-y-2">
+                            <img src="images/art6.png" alt="UDL Assessment" class="w-full rounded-xl shadow-md border border-gray-100">
+                            <p class="text-[11px] text-center text-gray-400">Figure 6: Structural and Environmental Inclusivity Barriers</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="assign1-7" class="content-assign1 bg-white rounded-2xl p-6 card-shadow fade-in" style="display: none;">
+                    <h3 class="text-2xl font-bold mb-4 border-b border-gray-100 pb-3 text-warning">Redesign Solution: Augmented Digital Scaffolding</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+                        <div class="space-y-4 text-gray-600 leading-relaxed text-sm">
+                            <p>To bridge the cognitive disconnect, our team proposed integrating <strong>augmented digital scaffolding</strong> directly behind the physical air stream.</p>
+                            <p>By implementing responsive digital visualization screen overlays, real-time airflow lines and air velocity vector arrows react dynamically as the user moves the ball. This directly transforms the invisible physics of fluid dynamics into a visible, immediate cognitive anchor.</p>
+                        </div>
+                        <div class="space-y-2">
+                            <img src="images/art7.png" alt="Digital Redesign" class="w-full rounded-xl shadow-md border border-gray-100">
+                            <p class="text-[11px] text-center text-gray-400">Figure 7: Proposed Dynamic Interface Overlay</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="assign1-8" class="content-assign1 bg-white rounded-2xl p-6 card-shadow fade-in" style="display: none;">
+                    <h3 class="text-2xl font-bold mb-4 border-b border-gray-100 pb-3 text-warning">Redesign Solution: Inclusive Hardware</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+                        <div class="space-y-4 text-gray-600 leading-relaxed text-sm">
+                            <p>To honor UDL pillars, the physical architecture requires adjustment. We conceptualized a <strong>height-adjustable vertical track</strong> for the air blower to ensure universal physical access for special needs individuals.</p>
+                            <p>Additionally, expanding the booth to accommodate dual-user stations allows peer-to-peer collaborative problem solving, utilizing Vygotsky’s <em>Zone of Proximal Development (ZPD)</em> to maximize team-driven exploration.</p>
+                        </div>
+                        <div class="space-y-2">
+                            <img src="images/art8.png" alt="Hardware Redesign" class="w-full rounded-xl shadow-md border border-gray-100">
+                            <p class="text-[11px] text-center text-gray-400">Figure 8: Adaptive Infrastructure Concepts</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="assign1-9" class="content-assign1 bg-white rounded-2xl p-6 card-shadow fade-in" style="display: none;">
+                    <h3 class="text-2xl font-bold mb-4 border-b border-gray-100 pb-3 text-primary">My Pedagogical Paradigm Shift</h3>
+                    <div class="bg-primary/10 p-8 rounded-xl border-l-4 border-primary relative overflow-hidden">
+                        <i class="fa fa-quote-right absolute -bottom-4 -right-4 text-9xl text-primary/10"></i>
+                        
+                        <div class="text-primary text-4xl mb-4 relative z-10"><i class="fa fa-quote-left"></i></div>
+                        <div class="space-y-5 text-gray-700 italic text-base md:text-lg leading-relaxed relative z-10">
+                            <p>Executing Assignment 1 completely revolutionized my professional lens as an educator. Previously, I evaluated educational technologies through a superficial lens—praising tools simply because they were "high-tech" or "highly entertaining."</p>
+                            <p>This analytical fieldwork forced me to realize that <strong>affective interaction does not automatically guarantee cognitive retention</strong>. True learning demands deliberate, empathetic scaffolding that guides raw curiosity into systemic abstract mastery.</p>
+                            <p>This lesson fundamentally reshaped my design choices. Moving forward into Assignment 2 (The Acropolis of Athens), I actively prevented hollow "gimmicks," ensuring that every piece of interactivity served as a rigorous, intentional anchor for history instruction.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="page-assign2" class="page-view fade-in" style="display: none;">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+            
+            <div class="lg:col-span-1 space-y-2 max-h-[70vh] overflow-y-auto pr-1">
+                <h4 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2 px-2">A2 Chapters</h4>
+                <button id="tab-assign2-1" class="tab-assign2 w-full text-left p-3 rounded-xl font-bold text-sm transition-all bg-primary text-white shadow-md border-l-4 border-secondary" onclick="switchSub('assign2', '1')">1. Empathy & Problem</button>
+                <button id="tab-assign2-2" class="tab-assign2 w-full text-left p-3 rounded-xl font-bold text-sm transition-all bg-white text-gray-600 hover:bg-primary/10 border-l-4 border-transparent" onclick="switchSub('assign2', '2')">2. TPACK & CTML Fusion</button>
+                <button id="tab-assign2-3" class="tab-assign2 w-full text-left p-3 rounded-xl font-bold text-sm transition-all bg-white text-gray-600 hover:bg-entertainment/10 border-l-4 border-transparent text-entertainment" onclick="switchSub('assign2', '3')"><i class="fa fa-play-circle mr-2"></i>3. Live 3D Module</button>
+                <button id="tab-assign2-4" class="tab-assign2 w-full text-left p-3 rounded-xl font-bold text-sm transition-all bg-white text-gray-600 hover:bg-primary/10 border-l-4 border-transparent" onclick="switchSub('assign2', '4')">4. Active Learning Design</button>
+                <button id="tab-assign2-5" class="tab-assign2 w-full text-left p-3 rounded-xl font-bold text-sm transition-all bg-white text-gray-600 hover:bg-primary/10 border-l-4 border-transparent" onclick="switchSub('assign2', '5')">5. Iterative Reflection</button>
+            </div>
+            
+            <div class="lg:col-span-3">
+                
+                <div id="assign2-1" class="content-assign2 bg-white rounded-2xl p-6 card-shadow fade-in" style="display: block;">
+                    <h3 class="text-2xl font-bold mb-4 border-b border-gray-100 pb-3 text-primary">Design Thinking: Empathizing with Form 1 Learners</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+                        <div class="space-y-4 text-gray-600 leading-relaxed text-sm">
+                            <p>For our instructional module, <strong>"Exploring the Acropolis of Athens,"</strong> we applied the Design Thinking framework to address a genuine pedagogical pain point for Malaysian Form 1 History students.</p>
+                            <p>Traditional history textbooks rely heavily on dense texts and static 2D maps. Through the <em>Empathy</em> phase, we realized that 13-year-olds inherently lack the spatial imagination required to visualize ancient Greek city-states (Polis). Abstract memorization leads to high cognitive fatigue and low intrinsic motivation.</p>
+                            <p>Our defining mission became: <strong>How might we transform passive historical reading into an immersive spatial exploration?</strong></p>
+                        </div>
+                        <div class="space-y-2">
+                            <img src="images/art10.png" alt="Empathy Phase" class="w-full rounded-xl shadow-md border border-gray-100">
+                            <p class="text-[11px] text-center text-gray-400">Figure 1: Identifying the spatial cognition gap</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="assign2-2" class="content-assign2 bg-white rounded-2xl p-6 card-shadow fade-in" style="display: none;">
+                    <h3 class="text-2xl font-bold mb-4 border-b border-gray-100 pb-3 text-primary">Theoretical Fusion: TPACK & CTML</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+                        <div class="space-y-4 text-gray-600 leading-relaxed text-sm">
+                            <p>We anchored our solution in the <strong>TPACK Framework</strong>, carefully ensuring that 3D Technology served the Pedagogy, rather than simply being a visual gimmick.</p>
+                            <p>By allowing students to physically navigate a digital Acropolis, we leveraged the <strong>Spatial Contiguity Principle</strong> from the Cognitive Theory of Multimedia Learning (CTML). Instead of reading text separate from an image, learners integrate information visually in real-time, drastically reducing extraneous cognitive load.</p>
+                        </div>
+                        <div class="space-y-2">
+                            <img src="images/art11.png" alt="TPACK Integration" class="w-full rounded-xl shadow-md border border-gray-100">
+                            <p class="text-[11px] text-center text-gray-400">Figure 2: Aligning 3D Tech with Constructivist Pedagogy</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="assign2-3" class="content-assign2 bg-white rounded-2xl p-6 card-shadow fade-in border-t-4 border-entertainment" style="display: none;">
+                    <div class="flex justify-between items-center mb-4 border-b border-gray-100 pb-3">
+                        <h3 class="text-2xl font-bold text-entertainment">Interactive 3D eBook Module</h3>
+                        <span class="bg-entertainment/10 text-entertainment text-xs font-bold px-3 py-1 rounded-full animate-pulse">Try It Live!</span>
+                    </div>
+                    <p class="text-sm text-gray-500 mb-4">Interact with the actual digital artifact developed for our learners. Drag to rotate and zoom to explore the monuments.</p>
+                    
+                    <div class="w-full h-[500px] border-2 border-dashed border-entertainment/40 rounded-xl overflow-hidden bg-gray-50 relative shadow-inner">
+                        <iframe src="acropolis.html" class="w-full h-full absolute inset-0" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+
+                <div id="assign2-4" class="content-assign2 bg-white rounded-2xl p-6 card-shadow fade-in" style="display: none;">
+                    <h3 class="text-2xl font-bold mb-4 border-b border-gray-100 pb-3 text-primary">Active Learning: Tagging & Mini Assembly</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+                        <div class="space-y-4 text-gray-600 leading-relaxed text-sm">
+                            <p>To ground the 3D exploration in <strong>Vygotsky's Social Constructivism</strong>, we designed collaborative peer tasks.</p>
+                            <p><strong>1. Monument Tagging:</strong> Learners work in groups to identify and tag temples dynamically, shifting from passive consumers to active knowledge builders.</p>
+                            <p><strong>2. The Mini Assembly:</strong> A role-playing scenario where students debate civic decisions (e.g., "Should we build ships or temples?"). This bridges architectural history with practical civic understanding.</p>
+                        </div>
+                        <div class="space-y-2">
+                            <img src="images/art12.png" alt="Active Learning Worksheet" class="w-full rounded-xl shadow-md border border-gray-100">
+                            <p class="text-[11px] text-center text-gray-400">Figure 3: Tagging activity and worksheet mapping</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="assign2-5" class="content-assign2 bg-white rounded-2xl p-6 card-shadow fade-in" style="display: none;">
+                    <h3 class="text-2xl font-bold mb-4 border-b border-gray-100 pb-3 text-primary">Gallery Walk Feedback & Future Iteration</h3>
+                    <div class="bg-primary/5 p-8 rounded-xl border-l-4 border-secondary relative overflow-hidden">
+                        <i class="fa fa-lightbulb-o absolute -bottom-4 -right-4 text-9xl text-secondary/10"></i>
+                        <div class="space-y-4 text-gray-700 text-sm md:text-base leading-relaxed relative z-10">
+                            <p>During the Week 14 Gallery Walk, our instructor validated the core design of our module. However, peer feedback revealed a practical flaw in our presentation. We provided too much historical background before introducing the 3D model. This long introduction made the early stage feel dry, and several visitors noted it lacked immediate visual appeal.</p>
+                            
+                            <p>I also realized the "Mini Assembly" activity needs refinement. The concept itself has great potential, but relying on printed worksheets limited student interaction. Moving constantly between an immersive digital environment and a piece of paper disrupted the learning experience. Learners clearly need a more accessible, interactive format to stay engaged.</p>
+                            
+                            <h4 class="font-bold text-secondary text-lg mt-6 border-b border-secondary/20 pb-1">Proposed Redesign: Web-based Role-playing</h4>
+                            <p>Observing the creative designs of other groups inspired my idea for our next iteration. We could transform the assessment phase into an interactive webpage featuring role-playing elements. Instead of filling out static paper forms, participants would take on the roles of ancient Athenian citizens. This digital approach directly replaces the worksheets. It increases interaction, deepens immersion, and aligns perfectly with Vygotsky's social constructivism by placing students inside the historical context they are studying.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    function switchPage(pageId) {
+        var pages = document.querySelectorAll('.page-view');
+        for(var i = 0; i < pages.length; i++) {
+            pages[i].style.display = 'none';
+        }
+        
+        var navs = document.querySelectorAll('.nav-btn');
+        for(var j = 0; j < navs.length; j++) {
+            navs[j].className = "nav-btn px-6 py-2.5 rounded-lg font-bold transition-all text-sm md:text-base bg-white text-dark hover:bg-beige";
+        }
+
+        document.getElementById('page-' + pageId).style.display = 'block';
+        document.getElementById('nav-' + pageId).className = "nav-btn px-6 py-2.5 rounded-lg font-bold transition-all text-sm md:text-base bg-primary text-white shadow-md";
+    }
+
+    function switchSub(category, targetId) {
+        var contents = document.querySelectorAll('.content-' + category);
+        for(var i = 0; i < contents.length; i++) {
+            contents[i].style.display = 'none';
+        }
+
+        var tabs = document.querySelectorAll('.tab-' + category);
+        for(var j = 0; j < tabs.length; j++) {
+            // 给子菜单加上文字变小的样式 text-xs (针对A1这9个菜单特别适用)
+            tabs[j].className = "tab-" + category + " w-full text-left p-3 rounded-xl font-bold text-xs transition-all bg-white text-gray-600 hover:bg-primary/10 border-l-4 border-transparent";
+        }
+
+        document.getElementById(category + '-' + targetId).style.display = 'block';
+        document.getElementById('tab-' + category + '-' + targetId).className = "tab-" + category + " w-full text-left p-3 rounded-xl font-bold text-xs transition-all bg-primary text-white shadow-md border-l-4 border-secondary";
+    }
+</script>
+</body>
+</html>
