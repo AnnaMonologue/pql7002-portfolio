@@ -1,4 +1,3 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -99,34 +98,158 @@ tailwind.config = {
     </div>
 
     <div id="page-weekly" class="page-view fade-in" style="display: none;">
-        <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
-            <div class="lg:col-span-1 space-y-3">
-                <button id="tab-weekly-1" class="tab-weekly w-full text-left p-4 rounded-xl font-bold transition-all bg-primary text-white shadow-md border-l-4 border-secondary" onclick="switchSub('weekly', '1')">
-                    W1-4: Intro to ID Models
-                </button>
-                <button id="tab-weekly-2" class="tab-weekly w-full text-left p-4 rounded-xl font-bold transition-all bg-white text-gray-600 hover:bg-primary/10 border-l-4 border-transparent" onclick="switchSub('weekly', '2')">
-                    W5-8: Learning Theories
-                </button>
-                <button id="tab-weekly-3" class="tab-weekly w-full text-left p-4 rounded-xl font-bold transition-all bg-white text-gray-600 hover:bg-primary/10 border-l-4 border-transparent" onclick="switchSub('weekly', '3')">
-                    W9-13: Modern Frameworks
-                </button>
-            </div>
-            <div class="lg:col-span-3">
-                <div id="weekly-1" class="content-weekly bg-white rounded-2xl p-6 card-shadow fade-in" style="display: block;">
-                    <h3 class="text-2xl font-bold mb-4 border-b border-gray-100 pb-3 text-primary">Instructional Design Models (Weeks 1-4)</h3>
-                    <p class="text-gray-600 mb-6">Reflecting on ADDIE, Kemp, and ASSURE models. This section is reserved for future course notes integration...</p>
+        
+        <div class="max-w-5xl mx-auto py-8">
+            <h2 class="text-3xl font-bold text-dark mb-10 border-b-4 border-primary inline-block pb-2">Weekly Learning Log</h2>
+
+            <div class="relative border-l-4 border-primary/30 ml-4 md:ml-6 space-y-12 pb-8">
+
+                <div class="relative pl-8 md:pl-10">
+                    <div class="absolute left-[-12px] top-1.5 w-5 h-5 rounded-full bg-secondary border-4 border-beige shadow-sm"></div>
+                    <h3 class="text-2xl font-bold text-primary mb-1">Week 1: Introduction to Learning Theories</h3>
+                    <p class="text-sm text-gray-500 mb-6 font-medium">10 March 2026</p>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div class="bg-beige/40 p-6 rounded-xl border-t-4 border-primary shadow-sm hover:shadow-md transition-shadow">
+                            <h4 class="font-bold text-dark mb-4 border-b border-gray-200 pb-2"><i class="fa fa-book mr-2"></i>Learning Concepts</h4>
+                            <ul class="list-disc pl-5 text-sm text-gray-700 space-y-2">
+                                <li><strong>Learning theories:</strong> Laws and principles that broadly explain how people learn and acquire knowledge.</li>
+                                <li><strong>Major paradigms:</strong> Behaviorism, Cognitivism, and Constructivism.</li>
+                                <li><strong>Significance:</strong> Allow educators to diagnose learning issues, guide teaching designs, and structure suitable learning experiences.</li>
+                                <li><strong>Course requirements:</strong> Continuous assessment (70%) comprises design critique, instructional materials development, and online reflection.</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                            <h4 class="font-bold text-secondary mb-4 border-b border-gray-200 pb-2"><i class="fa fa-lightbulb-o mr-2"></i>Critical Reflection</h4>
+                            <p class="text-sm text-gray-700 leading-relaxed space-y-3">
+                                Prof. Farrah outlined the syllabus and grading rubrics. We explored the macroscopic view of learning theories. I realized instructional technology transcends mere tool usage. Effective technology integration requires a solid theoretical foundation. This perspective shifted my mindset from a passive student to an active instructional designer.
+                            </p>
+                        </div>
+                    </div>
                 </div>
-                <div id="weekly-2" class="content-weekly bg-white rounded-2xl p-6 card-shadow fade-in" style="display: none;">
-                    <h3 class="text-2xl font-bold mb-4 border-b border-gray-100 pb-3 text-secondary">Learning Theories (Weeks 5-8)</h3>
-                    <p class="text-gray-600">Behaviorism, Cognitivism, and Constructivism...</p>
+
+                <div class="relative pl-8 md:pl-10">
+                    <div class="absolute left-[-12px] top-1.5 w-5 h-5 rounded-full bg-secondary border-4 border-beige shadow-sm"></div>
+                    <h3 class="text-2xl font-bold text-primary mb-1">Week 2 & 3: Understanding Behaviorism</h3>
+                    <p class="text-sm text-gray-500 mb-6 font-medium">17 - 21 March 2026</p>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div class="bg-beige/40 p-6 rounded-xl border-t-4 border-primary shadow-sm hover:shadow-md transition-shadow">
+                            <h4 class="font-bold text-dark mb-4 border-b border-gray-200 pb-2"><i class="fa fa-book mr-2"></i>Learning Concepts</h4>
+                            <ul class="list-disc pl-5 text-sm text-gray-700 space-y-2">
+                                <li><strong>Behaviorism:</strong> Views learning as observable behavior influenced by external stimuli and reinforced through rewards or punishments.</li>
+                                <li><strong>Conditioning:</strong> The process of pairing a meaningful stimulus with a desired response (Classical vs. Operant).</li>
+                                <li><strong>ABCD rules:</strong> Writing measurable objectives using Audience, Behavior, Condition, and Degree.</li>
+                                <li><strong>Applications:</strong> Drill-and-practice, mastery learning, gamification, and behavior modification techniques (BMT).</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                            <h4 class="font-bold text-secondary mb-4 border-b border-gray-200 pb-2"><i class="fa fa-lightbulb-o mr-2"></i>Critical Reflection</h4>
+                            <p class="text-sm text-gray-700 leading-relaxed space-y-3">
+                                Dr. Esma and Prof. Farrah deconstructed behaviorism through interactive sessions. We practiced drafting measurable instructional goals using the ABCD method. I previously dismissed behaviorism as outdated. However, analyzing modern adaptive systems revealed its ongoing relevance. Mechanics like instant feedback and positive reinforcement remain crucial for shaping foundational skills. We later applied these principles to critique physical learning exhibits.
+                            </p>
+                        </div>
+                    </div>
                 </div>
-                <div id="weekly-3" class="content-weekly bg-white rounded-2xl p-6 card-shadow fade-in" style="display: none;">
-                    <h3 class="text-2xl font-bold mb-4 border-b border-gray-100 pb-3 text-accent">Modern Tech Frameworks (Weeks 9-13)</h3>
-                    <p class="text-gray-600">TPACK, SAMR, and Community of Inquiry (CoI)...</p>
+
+                <div class="relative pl-8 md:pl-10">
+                    <div class="absolute left-[-12px] top-1.5 w-5 h-5 rounded-full bg-secondary border-4 border-beige shadow-sm"></div>
+                    <h3 class="text-2xl font-bold text-primary mb-1">Week 4 & 5: Constructivism & Field Trip</h3>
+                    <p class="text-sm text-gray-500 mb-6 font-medium">31 March 2026</p>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div class="bg-beige/40 p-6 rounded-xl border-t-4 border-primary shadow-sm hover:shadow-md transition-shadow">
+                            <h4 class="font-bold text-dark mb-4 border-b border-gray-200 pb-2"><i class="fa fa-book mr-2"></i>Learning Concepts</h4>
+                            <ul class="list-disc pl-5 text-sm text-gray-700 space-y-2">
+                                <li><strong>Field Trip:</strong> Design critique of the "Air Stream" (Bernoulli Blower) exhibit at Petrosains.</li>
+                                <li><strong>Constructivism:</strong> Learners understand concepts more deeply when they learn through direct experience and active meaning-making.</li>
+                                <li><strong>Experiential Learning Theory:</strong> Kolb's cycle comprising concrete experience, reflective observation, abstract conceptualization, and active experimentation.</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                            <h4 class="font-bold text-secondary mb-4 border-b border-gray-200 pb-2"><i class="fa fa-lightbulb-o mr-2"></i>Critical Reflection</h4>
+                            <p class="text-sm text-gray-700 leading-relaxed space-y-3">
+                                We conducted a field trip to Petrosains to evaluate the Bernoulli Blower. Observing children interact with the exhibit highlighted a gap between physical engagement and cognitive understanding. Many visitors enjoyed the concrete experience of floating balls. They rarely progressed to abstract conceptualization. A physical exhibit requires deliberate scaffolding to facilitate genuine learning. We documented these analytical findings in our critical design report.
+                            </p>
+                        </div>
+                    </div>
                 </div>
+
+                <div class="relative pl-8 md:pl-10">
+                    <div class="absolute left-[-12px] top-1.5 w-5 h-5 rounded-full bg-secondary border-4 border-beige shadow-sm"></div>
+                    <h3 class="text-2xl font-bold text-primary mb-1">Week 7 & 8: Design Thinking & CoI Framework</h3>
+                    <p class="text-sm text-gray-500 mb-6 font-medium">19 May 2026</p>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div class="bg-beige/40 p-6 rounded-xl border-t-4 border-primary shadow-sm hover:shadow-md transition-shadow">
+                            <h4 class="font-bold text-dark mb-4 border-b border-gray-200 pb-2"><i class="fa fa-book mr-2"></i>Learning Concepts</h4>
+                            <ul class="list-disc pl-5 text-sm text-gray-700 space-y-2">
+                                <li><strong>Design Thinking:</strong> Developing 3D instructional materials at Makerspace @ UM.</li>
+                                <li><strong>Community of Inquiry (CoI):</strong> A social constructivist model emphasizing knowledge construction within a learning community.</li>
+                                <li><strong>Social presence:</strong> Ability to develop interpersonal relationships.</li>
+                                <li><strong>Teaching presence:</strong> Ability to design and facilitate meaningful learning experiences.</li>
+                                <li><strong>Cognitive presence:</strong> Ability to construct meaning through sustained reflections and discourses.</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                            <h4 class="font-bold text-secondary mb-4 border-b border-gray-200 pb-2"><i class="fa fa-lightbulb-o mr-2"></i>Critical Reflection</h4>
+                            <p class="text-sm text-gray-700 leading-relaxed space-y-3">
+                                We transitioned to the Makerspace to develop a 3D Acropolis model for secondary students. Applying design thinking helped us empathize with learners struggling with abstract historical concepts. Prof. Farrah introduced the CoI framework. I learned a successful educational intervention must balance social, teaching, and cognitive presences. We integrated these elements into our Acropolis lesson plan. We designed tagging activities and a mock assembly to ensure active cognitive engagement and peer collaboration.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative pl-8 md:pl-10">
+                    <div class="absolute left-[-12px] top-1.5 w-5 h-5 rounded-full bg-secondary border-4 border-beige shadow-sm"></div>
+                    <h3 class="text-2xl font-bold text-primary mb-1">Week 9 & 10: TPACK Integration</h3>
+                    <p class="text-sm text-gray-500 mb-6 font-medium">09 June 2026</p>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div class="bg-beige/40 p-6 rounded-xl border-t-4 border-primary shadow-sm hover:shadow-md transition-shadow">
+                            <h4 class="font-bold text-dark mb-4 border-b border-gray-200 pb-2"><i class="fa fa-book mr-2"></i>Learning Concepts</h4>
+                            <ul class="list-disc pl-5 text-sm text-gray-700 space-y-2">
+                                <li><strong>The Challenge:</strong> Simply introducing technology does not guarantee better outcomes; it risks becoming a distraction without purposeful integration.</li>
+                                <li><strong>TPACK Framework:</strong> Integrates Technological Knowledge (TK), Pedagogical Knowledge (PK), and Content Knowledge (CK).</li>
+                                <li><strong>Intersection:</strong> Emphasizes that these domains are not independent but interact dynamically to empower impactful teaching.</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                            <h4 class="font-bold text-secondary mb-4 border-b border-gray-200 pb-2"><i class="fa fa-lightbulb-o mr-2"></i>Critical Reflection</h4>
+                            <p class="text-sm text-gray-700 leading-relaxed space-y-3">
+                                We explored the TPACK framework. Technology introduction alone does not guarantee better learning outcomes. This concept dismantled my assumption that advanced tools automatically improve education. Integrating 3D printing requires clear historical content and collaborative pedagogical strategies. Our Acropolis project succeeded because we used the physical model as a pedagogical scaffold rather than a standalone novelty.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="relative pl-8 md:pl-10">
+                    <div class="absolute left-[-12px] top-1.5 w-5 h-5 rounded-full bg-secondary border-4 border-beige shadow-sm"></div>
+                    <h3 class="text-2xl font-bold text-primary mb-1">Week 13 & 14: Innovation Diffusion & Gallery Walk</h3>
+                    <p class="text-sm text-gray-500 mb-6 font-medium">16 June 2026</p>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                        <div class="bg-beige/40 p-6 rounded-xl border-t-4 border-primary shadow-sm hover:shadow-md transition-shadow">
+                            <h4 class="font-bold text-dark mb-4 border-b border-gray-200 pb-2"><i class="fa fa-book mr-2"></i>Learning Concepts</h4>
+                            <ul class="list-disc pl-5 text-sm text-gray-700 space-y-2">
+                                <li><strong>Diffusion of Innovations:</strong> Explains how new educational technologies are adopted within a social system.</li>
+                                <li><strong>Attributes of Innovation:</strong> Relative advantage, compatibility, complexity, trialability, and observability.</li>
+                                <li><strong>Adopter Categories:</strong> Innovators, early adopters, early majority, late majority, and laggards.</li>
+                                <li><strong>Gallery Walk:</strong> Presentation and evaluation of physical instructional materials (DT Stage 5).</li>
+                            </ul>
+                        </div>
+                        <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+                            <h4 class="font-bold text-secondary mb-4 border-b border-gray-200 pb-2"><i class="fa fa-lightbulb-o mr-2"></i>Critical Reflection</h4>
+                            <p class="text-sm text-gray-700 leading-relaxed space-y-3">
+                                We concluded the course with Rogers' Diffusion of Innovations theory. An effective instructional design must be sustainable and scalable. We evaluated our Acropolis toolkit against attributes like complexity and compatibility with Malaysian school constraints. During the final Gallery Walk, we presented our prototypes and received peer feedback. This practical defense solidified my understanding of the entire instructional design lifecycle.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
-    </div>
+        </div>
 
     <div id="page-assign1" class="page-view fade-in" style="display: none;">
         <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
@@ -396,7 +519,7 @@ tailwind.config = {
 
         var tabs = document.querySelectorAll('.tab-' + category);
         for(var j = 0; j < tabs.length; j++) {
-            // 给子菜单加上文字变小的样式 text-xs (针对A1这9个菜单特别适用)
+            // 给子菜单加上文字变小的样式
             tabs[j].className = "tab-" + category + " w-full text-left p-3 rounded-xl font-bold text-xs transition-all bg-white text-gray-600 hover:bg-primary/10 border-l-4 border-transparent";
         }
 
